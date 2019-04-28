@@ -55,8 +55,11 @@ class CognitoService {
       $pem = JWK::parseKey($JWK);
       $decodeToken = JWT::decode($accessToken, $pem, array('RS256'));
       return true;
+    } catch(\Firebase\JWT\ExpiredException $e) {
+      \Log::warning('token expired: ' . $e);
+      return false;
     } catch (\Exception $e) {
-      // TODO:andy-shi88=logging error
+      \Log::warning('fail to verify token: ' . $e);
       return false;
     }
   }

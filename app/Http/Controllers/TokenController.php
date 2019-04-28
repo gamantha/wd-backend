@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Builders\ResponseBuilder;
+
 class TokenController extends Controller
 {
     /**
@@ -16,10 +18,9 @@ class TokenController extends Controller
 
     public function checkToken() {
       // middleware check passed return true
-      return response([
-        "message" => "token valid",
-        "success" => true,
-      ]);
+      $responseBuilder = new ResponseBuilder();
+      $response = $responseBuilder->setMessage('token valid')->setSuccess(true)->build();
+      return $response;
     }
 
     //

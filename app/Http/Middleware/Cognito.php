@@ -5,7 +5,8 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Contracts\Auth\Factory as Auth;
 use App\Http\Services\CognitoService;
-
+use App\Http\Builders\ResponseBuilder;
+use App\Http\Errors\CognitoErrors;
 
 class Cognito
 {
@@ -39,19 +40,20 @@ class Cognito
      */
     public function handle($request, Closure $next, $role = null)
     {
+        $responseBuilder = new ResponseBuilder();
         $accessToken = $request->header('access_token');
         if($request->header('access_token') == null) {
-            return response([
-                'message' => 'Unauthorized: Token not provided',
-                'success' => false,
-            ], 401);
+            return $responseBuilder->setMessage('Unauthorized: Token not provided')
+                ->setSuccess(false)->setStatus(401)
+                ->addError(CognitoErrors::$TokenNotProvided)
+                ->build();
         }
         // check token from aws-cognito
         if (!$this->cognitoService->verifyAccessToken($accessToken)) {
-            return response([
-                'message' => 'Unauthorized: Token invalid',
-                'success' => false,
-            ], 401);
+            return $responseBuilder->setMessage('Unauthorized: Token invalid')
+                ->setSuccess(false)->setStatus(401)
+                ->addError(CognitoErrors::$TokenInvalid)
+                ->build(); 
         }
         // TODO:andy-shi88=check permission json
         return $next($request);
