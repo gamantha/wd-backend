@@ -14,7 +14,7 @@ class CreateTableIndicatorValue extends Migration
     public function up()
     {
         Schema::create('indicator_value', function (Blueprint $table) {
-            $table->integer('id');
+            $table->increments('id');
             $table->integer('indicator_id');
             $table->integer('value');
             $table->integer('report_id');

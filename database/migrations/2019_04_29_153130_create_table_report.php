@@ -14,7 +14,7 @@ class CreateTableReport extends Migration
     public function up()
     {
         Schema::create('report', function (Blueprint $table) {
-            $table->integer('id');
+            $table->increments('id');
             $table->integer('report_template_id');
             $table->dateTime('report_date');
             $table->integer('author_id');

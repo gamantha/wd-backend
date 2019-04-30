@@ -14,7 +14,7 @@ class CreateTableIndicatorCategory extends Migration
     public function up()
     {
         Schema::create('indicator_category', function (Blueprint $table) {
-            $table->integer('id');
+            $table->increments('id');
             $table->string('name');
             $table->string('label');
             $table->integer('parent_category_id')->nullable();
