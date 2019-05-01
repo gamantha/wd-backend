@@ -23,7 +23,8 @@ $app = new Laravel\Lumen\Application(
 
 $app->withFacades();
 
-// $app->withEloquent();
+// andy-shi88-TODO:we might need to reconsider wether or not to use eloquent.
+$app->withEloquent();
 
 /*
 |--------------------------------------------------------------------------
