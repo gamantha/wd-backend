@@ -19,8 +19,7 @@ class CreateTableIndicator extends Migration
             $table->string('label');
             $table->string('unit_abel');
             $table->integer('indicator_category_id');
-            $table->dateTime('created_at');
-            $table->dateTime('updated_at');
+            $table->timestamps();
         });
     }
 

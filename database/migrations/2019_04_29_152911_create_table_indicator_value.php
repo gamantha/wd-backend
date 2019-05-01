@@ -18,8 +18,7 @@ class CreateTableIndicatorValue extends Migration
             $table->integer('indicator_id');
             $table->integer('value');
             $table->integer('report_id');
-            $table->dateTime('created_at');
-            $table->dateTime('updated_at');
+            $table->timestamps();
         });
     }
 

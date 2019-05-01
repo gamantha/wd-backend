@@ -18,8 +18,7 @@ class CreateTableIndicatorCategory extends Migration
             $table->string('name');
             $table->string('label');
             $table->integer('parent_category_id')->nullable();
-            $table->dateTime('created_at');
-            $table->dateTime('updated_at');
+            $table->timestamps();
         });
     }
 
