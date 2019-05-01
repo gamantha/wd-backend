@@ -41,6 +41,10 @@ class Response {
     $this->links['count'] = $count;
   }
 
+  public function setPage($page) {
+    $this->links['page'] = $page;
+  }
+
   public function addError($error) {
     array_push($this->meta['errors'], $error);
   }

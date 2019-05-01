@@ -21,4 +21,29 @@ $router->group(['prefix' => 'api/v1', 'middleware' => 'cognito-auth'], function(
         'uses'=>'TokenController@checkToken'
     ]);
 
+    $router->patch('/report_templates/{id}', [
+        'as' => 'report_templates',
+        'uses'=>'ReportTemplateController@update'
+    ]);
+    
+    $router->delete('/report_templates/{id}', [
+        'as' => 'report_templates',
+        'uses'=>'ReportTemplateController@delete'
+    ]);
+    
+    $router->post('/report_templates', [
+        'as' => 'report_templates',
+        'uses'=>'ReportTemplateController@create'
+    ]);
+    
+    $router->get('/report_templates', [
+        'as' => 'report_templates',
+        'uses'=>'ReportTemplateController@get'
+    ]);
+    
+    $router->get('/report_templates/{id}', [
+        'as' => 'report_templates',
+        'uses'=>'ReportTemplateController@find'
+    ]);
+
 });

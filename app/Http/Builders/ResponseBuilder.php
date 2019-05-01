@@ -44,6 +44,11 @@ class ResponseBuilder {
     $this->response->setCount($count);
     return $this;
   }
+
+  public function setPage($page) {
+    $this->response->setPage($page);
+    return $this;
+  }
   
   public function addError($error) {
     $this->response->addError($error);

@@ -19,8 +19,7 @@ class CreateTableReport extends Migration
             $table->dateTime('report_date');
             $table->integer('author_id');
             $table->integer('status');
-            $table->dateTime('created_at');
-            $table->dateTime('updated_at');
+            $table->timestamps();
         });
     }
 
