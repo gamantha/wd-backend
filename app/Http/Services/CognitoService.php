@@ -38,9 +38,9 @@ class CognitoService {
   /**
    * verifyAccessToken verify given access token
    * @param $accessToken String
-   * @return bool
+   * @return object decoded token
    */
-  public function verifyAccessToken(String $accessToken): bool {
+  public function verifyAccessToken(String $accessToken) {
     $header = explode(".", $accessToken);
     $decodedHeader = json_decode(base64_decode($header[0]), true);
     $JWK = [];
@@ -54,13 +54,13 @@ class CognitoService {
     try {
       $pem = JWK::parseKey($JWK);
       $decodeToken = JWT::decode($accessToken, $pem, array('RS256'));
-      return true;
+      return $decodeToken;
     } catch(\Firebase\JWT\ExpiredException $e) {
       \Log::warning('token expired: ' . $e);
-      return false;
+      return null;
     } catch (\Exception $e) {
       \Log::warning('fail to verify token: ' . $e);
-      return false;
+      return null;
     }
   }
 
