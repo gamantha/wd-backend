@@ -21,54 +21,82 @@ $router->group(['prefix' => 'api/v1', 'middleware' => 'cognito-auth'], function 
         'uses' => 'TokenController@checkToken'
     ]);
 
-    $router->patch('/report_templates/{id}', [
-        'as' => 'report_templates',
-        'uses' => 'ReportTemplateController@update'
-    ]);
-
-    $router->delete('/report_templates/{id}', [
-        'as' => 'report_templates',
-        'uses' => 'ReportTemplateController@delete'
-    ]);
-
-    $router->post('/report_templates', [
-        'as' => 'report_templates',
-        'uses' => 'ReportTemplateController@create'
-    ]);
-
-    $router->get('/report_templates', [
-        'as' => 'report_templates',
-        'uses' => 'ReportTemplateController@get'
-    ]);
-
-    $router->get('/report_templates/{id}', [
-        'as' => 'report_templates',
-        'uses' => 'ReportTemplateController@find'
-    ]);
+    $router->group(['prefix' => '/report_templates'], function () use ($router) {
+        $router->patch('/{id}', [
+            'as' => 'report_templates',
+            'uses' => 'ReportTemplateController@update'
+        ]);
+    
+        $router->delete('/{id}', [
+            'as' => 'report_templates',
+            'uses' => 'ReportTemplateController@delete'
+        ]);
+    
+        $router->post('/', [
+            'as' => 'report_templates',
+            'uses' => 'ReportTemplateController@create'
+        ]);
+    
+        $router->get('/', [
+            'as' => 'report_templates',
+            'uses' => 'ReportTemplateController@get'
+        ]);
+    
+        $router->get('/{id}', [
+            'as' => 'report_templates',
+            'uses' => 'ReportTemplateController@find'
+        ]);
+    });
 
     //Endpoint for Report CRUD
-    $router->get('/report', [
-        'as' => 'report',
-        'uses' => 'ReportController@get'
-    ]);
+    $router->group(['prefix' => '/reports'], function () use ($router) {
+        $router->get('/', [
+            'as' => 'report',
+            'uses' => 'ReportController@get'
+        ]);
+    
+        $router->post('/', [
+            'as' => 'report',
+            'uses' => 'ReportController@create'
+        ]);
+    
+        $router->get('/{id}', [
+            'as' => 'report',
+            'uses' => 'ReportController@find'
+        ]);
+    
+        $router->delete('/{id}', [
+            'as' => 'report',
+            'uses' => 'ReportController@delete'
+        ]);
+    
+        $router->patch('/{id}', [
+            'as' => 'report',
+            'uses' => 'ReportController@update'
+        ]);
+    });
 
-    $router->post('/report', [
-        'as' => 'report',
-        'uses' => 'ReportController@create'
-    ]);
+    $router->group(['prefix' => '/indicators'], function () use ($router) {
+        $router->get('/', [
+            'as' => 'indicators',
+            'uses' => 'IndicatorController@get'
+        ]);
+        $router->get('/{id}', [
+            'as' => 'indicators',
+            'uses' => 'IndicatorController@find'
+        ]);
+        $router->post('/', [
+            'as' => 'indicators',
+            'uses' => 'IndicatorController@create'
+        ]);
+        $router->patch('/{id}', [
+            'as' => 'indicators',
+            'uses' => 'IndicatorController@update'
+        ]);
 
-    $router->get('/report/{id}', [
-        'as' => 'report',
-        'uses' => 'ReportController@find'
-    ]);
-
-    $router->delete('/report/{id}', [
-        'as' => 'report',
-        'uses' => 'ReportController@delete'
-    ]);
-
-    $router->patch('/report/{id}', [
-        'as' => 'report',
-        'uses' => 'ReportController@update'
-    ]);
+        $router->delete('/{id}', [
+            'as' => 'indicators',
+            'uses' => 'IndicatorController@delete'
+        ]);
+    });
 });
