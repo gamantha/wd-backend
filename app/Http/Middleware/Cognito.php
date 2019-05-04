@@ -49,12 +49,14 @@ class Cognito
                 ->build();
         }
         // check token from aws-cognito
-        if (!$this->cognitoService->verifyAccessToken($accessToken)) {
+        $user = $this->cognitoService->verifyAccessToken($accessToken);
+        if ($user == null) {
             return $responseBuilder->setMessage('Unauthorized: Token invalid')
                 ->setSuccess(false)->setStatus(401)
                 ->addError(CognitoErrors::$TokenInvalid)
                 ->build(); 
         }
+        $request->auth = $user;
         // TODO:andy-shi88=check permission json
         return $next($request);
     }

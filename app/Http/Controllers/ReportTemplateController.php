@@ -57,7 +57,7 @@ class ReportTemplateController extends Controller
         $data = new ReportTemplate();
         $data->name = $request->input('name');
         $data->label = $request->input('label');
-        $data->author_id = "andy-shi88"; // TODO: get auth from middleware
+        $data->author_id = $request->auth->username;
         $reportTemplate = $this->service->save($data);
         $response = $responseBuilder->setData($reportTemplate)->setMessage('report template created successfully')
           ->setSuccess(true)->build();
@@ -84,7 +84,7 @@ class ReportTemplateController extends Controller
         if ($data) {
           $data->name = $request->input('name');
           $data->label = $request->input('label');
-          $data->author_id = "andy-shi88"; // TODO: get auth from middleware
+          $data->author_id = $request->auth->username;
           $reportTemplate = $this->service->save($data);
           $response = $responseBuilder->setData($reportTemplate)->setMessage('report template updated successfully')
             ->setSuccess(true)->build();
