@@ -1,463 +1,612 @@
 {
-	"info": {
-		"_postman_id": "28f0069a-9403-4e69-a43b-a1d95b12a09a",
-		"name": "WD-gamantha",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-	},
-	"item": [
-		{
-			"name": "misc",
-			"item": [
-				{
-					"name": "checkToken",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "access_token",
-								"value": "{{AccessToken}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{Host}}/checkToken",
-							"host": [
-								"{{Host}}"
-							],
-							"path": [
-								"checkToken"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "report_template",
-			"item": [
-				{
-					"name": "get",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "access_token",
-								"value": "{{AccessToken}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{Host}}/report_templates?page=1&limit=1",
-							"host": [
-								"{{Host}}"
-							],
-							"path": [
-								"report_templates"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "1"
-								},
-								{
-									"key": "limit",
-									"value": "1"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "find",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "access_token",
-								"value": "{{AccessToken}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{Host}}/report_templates/1",
-							"host": [
-								"{{Host}}"
-							],
-							"path": [
-								"report_templates",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "create",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/x-www-form-urlencoded",
-								"type": "text"
-							},
-							{
-								"key": "access_token",
-								"value": "{{AccessToken}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "name",
-									"value": "andy",
-									"type": "text"
-								},
-								{
-									"key": "label",
-									"value": "and",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{Host}}/report_templates",
-							"host": [
-								"{{Host}}"
-							],
-							"path": [
-								"report_templates"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update",
-					"request": {
-						"method": "PATCH",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/x-www-form-urlencoded"
-							},
-							{
-								"key": "access_token",
-								"value": "{{AccessToken}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "name",
-									"value": "budi",
-									"type": "text"
-								},
-								{
-									"key": "label",
-									"value": "and",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{Host}}/report_templates/1",
-							"host": [
-								"{{Host}}"
-							],
-							"path": [
-								"report_templates",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "delete",
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/x-www-form-urlencoded"
-							},
-							{
-								"key": "access_token",
-								"value": "{{AccessToken}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "name",
-									"value": "budi",
-									"type": "text",
-									"disabled": true
-								},
-								{
-									"key": "label",
-									"value": "and",
-									"type": "text",
-									"disabled": true
-								}
-							]
-						},
-						"url": {
-							"raw": "{{Host}}/report_templates/1",
-							"host": [
-								"{{Host}}"
-							],
-							"path": [
-								"report_templates",
-								"1"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "indicator",
-			"item": [
-				{
-					"name": "get",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "access_token",
-								"value": "{{AccessToken}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{Host}}/indicators?page=1&limit=5",
-							"host": [
-								"{{Host}}"
-							],
-							"path": [
-								"indicators"
-							],
-							"query": [
-								{
-									"key": "page",
-									"value": "1"
-								},
-								{
-									"key": "limit",
-									"value": "5"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "find",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "access_token",
-								"value": "{{AccessToken}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{Host}}/indicators/1",
-							"host": [
-								"{{Host}}"
-							],
-							"path": [
-								"indicators",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "create",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/x-www-form-urlencoded",
-								"type": "text"
-							},
-							{
-								"key": "access_token",
-								"value": "{{AccessToken}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "name",
-									"value": "andy",
-									"type": "text"
-								},
-								{
-									"key": "label",
-									"value": "and",
-									"type": "text"
-								},
-								{
-									"key": "unit_label",
-									"value": "int32",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{Host}}/indicators",
-							"host": [
-								"{{Host}}"
-							],
-							"path": [
-								"indicators"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update",
-					"request": {
-						"method": "PATCH",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/x-www-form-urlencoded"
-							},
-							{
-								"key": "access_token",
-								"value": "{{AccessToken}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "name",
-									"value": "budi",
-									"type": "text"
-								},
-								{
-									"key": "label",
-									"value": "and",
-									"type": "text"
-								},
-								{
-									"key": "unit_label",
-									"value": "int64",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{Host}}/indicators/1",
-							"host": [
-								"{{Host}}"
-							],
-							"path": [
-								"indicators",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "delete",
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/x-www-form-urlencoded"
-							},
-							{
-								"key": "access_token",
-								"value": "{{AccessToken}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "name",
-									"value": "budi",
-									"type": "text",
-									"disabled": true
-								},
-								{
-									"key": "label",
-									"value": "and",
-									"type": "text",
-									"disabled": true
-								}
-							]
-						},
-						"url": {
-							"raw": "{{Host}}/indicators/1",
-							"host": [
-								"{{Host}}"
-							],
-							"path": [
-								"indicators",
-								"1"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		}
-	]
+    "info": {
+        "_postman_id": "28f0069a-9403-4e69-a43b-a1d95b12a09a",
+        "name": "WD-gamantha",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "misc",
+            "item": [
+                {
+                    "name": "checkToken",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "access_token",
+                                "value": "{{AccessToken}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": ""
+                        },
+                        "url": {
+                            "raw": "{{Host}}/checkToken",
+                            "host": ["{{Host}}"],
+                            "path": ["checkToken"]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "report",
+            "item": [
+                {
+                    "name": "get",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "access_token",
+                                "value": "{{AccessToken}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": ""
+                        },
+                        "url": {
+                            "raw": "{{Host}}/report?page=1&limit=1",
+                            "host": ["{{Host}}"],
+                            "path": ["report"],
+                            "query": [
+                                {
+                                    "key": "page",
+                                    "value": "1"
+                                },
+                                {
+                                    "key": "limit",
+                                    "value": "1"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "find",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "access_token",
+                                "value": "{{AccessToken}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": ""
+                        },
+                        "url": {
+                            "raw": "{{Host}}/report/1",
+                            "host": ["{{Host}}"],
+                            "path": ["report_templates", "1"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "create",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "value": "application/x-www-form-urlencoded",
+                                "type": "text"
+                            },
+                            {
+                                "key": "access_token",
+                                "value": "{{AccessToken}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "urlencoded",
+                            "urlencoded": [
+                                {
+                                    "key": "report_template_id",
+                                    "value": "1",
+                                    "type": "int32"
+                                },
+                                {
+                                    "key": "report_date",
+                                    "value": "2019-05-01 22:38:28",
+                                    "type": "datetime"
+                                },
+                                {
+                                    "key": "status",
+                                    "value": "1",
+                                    "type": "int32"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{Host}}/report",
+                            "host": ["{{Host}}"],
+                            "path": ["report"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "update",
+                    "request": {
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "type": "text",
+                                "value": "application/x-www-form-urlencoded"
+                            },
+                            {
+                                "key": "access_token",
+                                "value": "{{AccessToken}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "urlencoded",
+                            "urlencoded": [
+                                {
+                                    "key": "report_template_id",
+                                    "value": "1",
+                                    "type": "int32"
+                                },
+                                {
+                                    "key": "report_date",
+                                    "value": "2019-05-01 22:38:28",
+                                    "type": "datetime"
+                                },
+                                {
+                                    "key": "status",
+                                    "value": "1",
+                                    "type": "int32"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{Host}}/report/1",
+                            "host": ["{{Host}}"],
+                            "path": ["report", "1"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "delete",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "type": "text",
+                                "value": "application/x-www-form-urlencoded"
+                            },
+                            {
+                                "key": "access_token",
+                                "value": "{{AccessToken}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "urlencoded",
+                            "urlencoded": [
+                                {
+                                    "key": "report_template_id",
+                                    "value": "1",
+                                    "type": "int32",
+                                    "disabled": "true"
+                                },
+                                {
+                                    "key": "report_date",
+                                    "value": "2019-05-01 22:38:28",
+                                    "type": "datetime",
+                                    "disabled": "true"
+                                },
+                                {
+                                    "key": "status",
+                                    "value": "1",
+                                    "type": "int32",
+                                    "disabled": "true"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{Host}}/report_templates/1",
+                            "host": ["{{Host}}"],
+                            "path": ["report_templates", "1"]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "report_template",
+            "item": [
+                {
+                    "name": "get",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "access_token",
+                                "value": "{{AccessToken}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": ""
+                        },
+                        "url": {
+                            "raw": "{{Host}}/report_templates?page=1&limit=1",
+                            "host": ["{{Host}}"],
+                            "path": ["report_templates"],
+                            "query": [
+                                {
+                                    "key": "page",
+                                    "value": "1"
+                                },
+                                {
+                                    "key": "limit",
+                                    "value": "1"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "find",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "access_token",
+                                "value": "{{AccessToken}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": ""
+                        },
+                        "url": {
+                            "raw": "{{Host}}/report_templates/1",
+                            "host": ["{{Host}}"],
+                            "path": ["report_templates", "1"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "create",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "value": "application/x-www-form-urlencoded",
+                                "type": "text"
+                            },
+                            {
+                                "key": "access_token",
+                                "value": "{{AccessToken}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "urlencoded",
+                            "urlencoded": [
+                                {
+                                    "key": "name",
+                                    "value": "andy",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "label",
+                                    "value": "and",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{Host}}/report_templates",
+                            "host": ["{{Host}}"],
+                            "path": ["report_templates"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "update",
+                    "request": {
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "type": "text",
+                                "value": "application/x-www-form-urlencoded"
+                            },
+                            {
+                                "key": "access_token",
+                                "value": "{{AccessToken}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "urlencoded",
+                            "urlencoded": [
+                                {
+                                    "key": "name",
+                                    "value": "budi",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "label",
+                                    "value": "and",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{Host}}/report_templates/1",
+                            "host": ["{{Host}}"],
+                            "path": ["report_templates", "1"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "delete",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "type": "text",
+                                "value": "application/x-www-form-urlencoded"
+                            },
+                            {
+                                "key": "access_token",
+                                "value": "{{AccessToken}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "urlencoded",
+                            "urlencoded": [
+                                {
+                                    "key": "name",
+                                    "value": "budi",
+                                    "type": "text",
+                                    "disabled": true
+                                },
+                                {
+                                    "key": "label",
+                                    "value": "and",
+                                    "type": "text",
+                                    "disabled": true
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{Host}}/report_templates/1",
+                            "host": ["{{Host}}"],
+                            "path": ["report_templates", "1"]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "indicator",
+            "item": [
+                {
+                    "name": "get",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "access_token",
+                                "value": "{{AccessToken}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": ""
+                        },
+                        "url": {
+                            "raw": "{{Host}}/indicators?page=1&limit=5",
+                            "host": ["{{Host}}"],
+                            "path": ["indicators"],
+                            "query": [
+                                {
+                                    "key": "page",
+                                    "value": "1"
+                                },
+                                {
+                                    "key": "limit",
+                                    "value": "5"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "find",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "access_token",
+                                "value": "{{AccessToken}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": ""
+                        },
+                        "url": {
+                            "raw": "{{Host}}/indicators/1",
+                            "host": ["{{Host}}"],
+                            "path": ["indicators", "1"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "create",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "value": "application/x-www-form-urlencoded",
+                                "type": "text"
+                            },
+                            {
+                                "key": "access_token",
+                                "value": "{{AccessToken}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "urlencoded",
+                            "urlencoded": [
+                                {
+                                    "key": "name",
+                                    "value": "andy",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "label",
+                                    "value": "and",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "unit_label",
+                                    "value": "int32",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{Host}}/indicators",
+                            "host": ["{{Host}}"],
+                            "path": ["indicators"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "update",
+                    "request": {
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "type": "text",
+                                "value": "application/x-www-form-urlencoded"
+                            },
+                            {
+                                "key": "access_token",
+                                "value": "{{AccessToken}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "urlencoded",
+                            "urlencoded": [
+                                {
+                                    "key": "name",
+                                    "value": "budi",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "label",
+                                    "value": "and",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "unit_label",
+                                    "value": "int64",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{Host}}/indicators/1",
+                            "host": ["{{Host}}"],
+                            "path": ["indicators", "1"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "delete",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "name": "Content-Type",
+                                "type": "text",
+                                "value": "application/x-www-form-urlencoded"
+                            },
+                            {
+                                "key": "access_token",
+                                "value": "{{AccessToken}}",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "urlencoded",
+                            "urlencoded": [
+                                {
+                                    "key": "name",
+                                    "value": "budi",
+                                    "type": "text",
+                                    "disabled": true
+                                },
+                                {
+                                    "key": "label",
+                                    "value": "and",
+                                    "type": "text",
+                                    "disabled": true
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{Host}}/indicators/1",
+                            "host": ["{{Host}}"],
+                            "path": ["indicators", "1"]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        }
+    ]
 }

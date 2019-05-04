@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Http\Builders;
 
@@ -36,20 +36,20 @@ class ResponseBuilder {
   }
 
   public function setTotal($total) {
-    $this->response->setTotal($total);
+    $this->response->setTotal((int)$total);
     return $this;
   }
 
   public function setCount($count) {
-    $this->response->setCount($count);
+    $this->response->setCount((int)$count);
     return $this;
   }
 
   public function setPage($page) {
-    $this->response->setPage($page);
+    $this->response->setPage((int)$page);
     return $this;
   }
-  
+
   public function addError($error) {
     $this->response->addError($error);
     return $this;
