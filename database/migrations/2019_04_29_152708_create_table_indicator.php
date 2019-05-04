@@ -17,8 +17,8 @@ class CreateTableIndicator extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('label');
-            $table->string('unit_abel');
-            $table->integer('indicator_category_id');
+            $table->string('unit_label');
+            // $table->integer('indicator_category_id'); :andy-shi88 omit this for now
             $table->timestamps();
         });
     }
