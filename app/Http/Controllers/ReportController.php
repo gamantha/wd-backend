@@ -34,7 +34,7 @@ class ReportController extends Controller
             $data->report_template_id = $request->input('report_template_id');
             $data->report_date = $request->input('report_date');
             $data->status = $request->input('status');
-            $data->author_id = "andy-shi88"; // TODO: get auth from middleware
+            $data->author_id = $request->auth->username; // TODO: get auth from middleware
             $report = $this->service->save($data);
             $response = $responseBuilder->setData($report)->setMessage('report created successfully')
                 ->setSuccess(true)->build();
@@ -91,7 +91,7 @@ class ReportController extends Controller
                 $data->report_template_id = $request->input('report_template_id');
                 $data->report_date = $request->input('report_date');
                 $data->status = $request->input('status');
-                $data->author_id = "andy-shi88";  // TODO: get auth from middleware
+                $data->author_id = $request->auth->username;
                 $report = $this->service->save($data);
                 $response = $responseBuilder->setData($report)->setMessage('report updated successfully')
                     ->setSuccess(true)->build();
