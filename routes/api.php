@@ -26,22 +26,22 @@ $router->group(['prefix' => 'api/v1', 'middleware' => 'cognito-auth'], function 
             'as' => 'report_templates',
             'uses' => 'ReportTemplateController@update'
         ]);
-    
+
         $router->delete('/{id}', [
             'as' => 'report_templates',
             'uses' => 'ReportTemplateController@delete'
         ]);
-    
+
         $router->post('/', [
             'as' => 'report_templates',
             'uses' => 'ReportTemplateController@create'
         ]);
-    
+
         $router->get('/', [
             'as' => 'report_templates',
             'uses' => 'ReportTemplateController@get'
         ]);
-    
+
         $router->get('/{id}', [
             'as' => 'report_templates',
             'uses' => 'ReportTemplateController@find'
@@ -54,22 +54,22 @@ $router->group(['prefix' => 'api/v1', 'middleware' => 'cognito-auth'], function 
             'as' => 'report',
             'uses' => 'ReportController@get'
         ]);
-    
+
         $router->post('/', [
             'as' => 'report',
             'uses' => 'ReportController@create'
         ]);
-    
+
         $router->get('/{id}', [
             'as' => 'report',
             'uses' => 'ReportController@find'
         ]);
-    
+
         $router->delete('/{id}', [
             'as' => 'report',
             'uses' => 'ReportController@delete'
         ]);
-    
+
         $router->patch('/{id}', [
             'as' => 'report',
             'uses' => 'ReportController@update'
@@ -97,6 +97,30 @@ $router->group(['prefix' => 'api/v1', 'middleware' => 'cognito-auth'], function 
         $router->delete('/{id}', [
             'as' => 'indicators',
             'uses' => 'IndicatorController@delete'
+        ]);
+    });
+
+    $router->group(['prefix' => '/morbidity'], function () use ($router) {
+        $router->get('/', [
+            'as' => 'morbidity',
+            'uses' => 'MorbidityController@get'
+        ]);
+        $router->get('/{id}', [
+            'as' => 'morbidity',
+            'uses' => 'MorbidityController@find'
+        ]);
+        $router->post('/', [
+            'as' => 'morbidity',
+            'uses' => 'MorbidityController@create'
+        ]);
+        $router->patch('/{id}', [
+            'as' => 'morbidity',
+            'uses' => 'MorbidityController@update'
+        ]);
+
+        $router->delete('/{id}', [
+            'as' => 'morbidity',
+            'uses' => 'MorbidityController@delete'
         ]);
     });
 });
