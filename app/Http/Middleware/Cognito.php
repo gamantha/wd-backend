@@ -42,6 +42,12 @@ class Cognito
     {
         $responseBuilder = new ResponseBuilder();
         $accessTokenArr = explode(' ', $request->header('access_token'));
+        if (count($accessTokenArr) <= 1) {
+            return $responseBuilder->setMessage('Unauthorized: Token not provided')
+                ->setSuccess(false)->setStatus(401)
+                ->addError(CognitoErrors::$TokenInvalid)
+                ->build();
+        }
         $accessToken = $accessTokenArr[1];
         if (\strtolower($accessTokenArr[0]) != 'bearer') {
             return $responseBuilder->setMessage('Unauthorized: Token invalid')
