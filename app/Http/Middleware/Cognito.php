@@ -41,7 +41,7 @@ class Cognito
     public function handle($request, Closure $next, $role = null)
     {
         $responseBuilder = new ResponseBuilder();
-        $accessTokenArr = explode(' ', $request->header('access_token'));
+        $accessTokenArr = explode(' ', $request->header('Authorization'));
         if (count($accessTokenArr) <= 1) {
             return $responseBuilder->setMessage('Unauthorized: Token not provided')
                 ->setSuccess(false)->setStatus(401)
@@ -49,13 +49,14 @@ class Cognito
                 ->build();
         }
         $accessToken = $accessTokenArr[1];
+        dd($accessToken);
         if (\strtolower($accessTokenArr[0]) != 'bearer') {
             return $responseBuilder->setMessage('Unauthorized: Token invalid')
                 ->setSuccess(false)->setStatus(401)
                 ->addError(CognitoErrors::$TokenInvalid)
                 ->build();
         }
-        if($request->header('access_token') == null) {
+        if($request->header('Authorization') == null) {
             return $responseBuilder->setMessage('Unauthorized: Token not provided')
                 ->setSuccess(false)->setStatus(401)
                 ->addError(CognitoErrors::$TokenNotProvided)
