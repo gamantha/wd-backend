@@ -49,7 +49,6 @@ class Cognito
                 ->build();
         }
         $accessToken = $accessTokenArr[1];
-        dd($accessToken);
         if (\strtolower($accessTokenArr[0]) != 'bearer') {
             return $responseBuilder->setMessage('Unauthorized: Token invalid')
                 ->setSuccess(false)->setStatus(401)
