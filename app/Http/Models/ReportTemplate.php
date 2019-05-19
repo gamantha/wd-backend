@@ -3,6 +3,7 @@
 namespace App\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Models\Report;
 
 class ReportTemplate extends Model {
 
@@ -12,4 +13,8 @@ class ReportTemplate extends Model {
     'name', 'label', 'author_id'
   ];
 
+  public function report()
+  {
+      return $this->belongsTo('App\Http\Models\Report');
+  }
 }
