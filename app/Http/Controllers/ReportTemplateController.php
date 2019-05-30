@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Models\Indicator;
+use App\Http\Services\IndicatorService;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
@@ -11,6 +13,8 @@ use App\Http\Services\ReportTemplateService;
 
 class ReportTemplateController extends Controller
 {
+
+    private $indicatorService;
     /**
      * Create a new controller instance.
      *
@@ -19,6 +23,8 @@ class ReportTemplateController extends Controller
     public function __construct()
     {
         $model = new ReportTemplate();
+        $indicator = new Indicator();
+        $this->indicatorService = new IndicatorService($indicator);
         parent::__construct(new ReportTemplateService($model));
     }
 
@@ -47,6 +53,25 @@ class ReportTemplateController extends Controller
       }
     }
 
+    public function getIndicators($id) {
+      $responseBuilder = new ResponseBuilder();
+      $reportTemplate = $this->service->find($id);
+      if ($reportTemplate) {
+          $limit = 1000;
+          $page = 1;
+          $indicators = $this->indicatorService->get($page, $limit, [['report_template_id', $id]]);
+          $response = $responseBuilder->setData($indicators['data'])->setMessage('fetched report template indicators indicators')
+              ->setTotal($indicators['total'])->setCount($limit)->setPage($page)
+              ->setSuccess(true)->build();
+            return $response;
+      } else {
+          $response = $responseBuilder->setData($reportTemplate)
+              ->setMessage('report template with id: ' . $id . ' not found')
+              ->setSuccess(false)->setStatus(404)->build();
+          return $response;
+      }
+    }
+    
     public function create(Request $request) {
       $responseBuilder = new ResponseBuilder();
       try {
