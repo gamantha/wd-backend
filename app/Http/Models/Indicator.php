@@ -12,4 +12,9 @@ class Indicator extends Model {
     'name', 'label', 'unit_label'
   ];
 
+
+  public function reportTemplates()
+  {
+    return $this->belongsToMany('App\Http\Models\ReportTemplate', 'report_indicator_map');
+  }
 }

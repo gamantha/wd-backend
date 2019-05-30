@@ -59,9 +59,8 @@ class ReportTemplateController extends Controller
       if ($reportTemplate) {
           $limit = 1000;
           $page = 1;
-          $indicators = $this->indicatorService->get($page, $limit, [['report_template_id', $id]]);
-          $response = $responseBuilder->setData($indicators['data'])->setMessage('fetched report template indicators indicators')
-              ->setTotal($indicators['total'])->setCount($limit)->setPage($page)
+          $indicators = $reportTemplate->indicators()->get();
+          $response = $responseBuilder->setData($indicators)->setMessage('fetched report template indicators indicators')
               ->setSuccess(true)->build();
             return $response;
       } else {
