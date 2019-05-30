@@ -46,6 +46,11 @@ $router->group(['prefix' => 'api/v1', 'middleware' => 'cognito-auth'], function 
             'as' => 'report_templates',
             'uses' => 'ReportTemplateController@find'
         ]);
+
+        $router->get('/{id}/indicators', [
+            'as' => 'report_templates',
+            'uses' => 'ReportTemplateController@getIndicators'
+        ]);
     });
 
     //Endpoint for Report CRUD
@@ -75,6 +80,14 @@ $router->group(['prefix' => 'api/v1', 'middleware' => 'cognito-auth'], function 
             'uses' => 'ReportController@update'
         ]);
     });
+
+    $router->group(['prefix' => '/indicator_values'], function () use ($router) {
+        $router->post('/', [
+            'as' => 'indicatorValue',
+            'uses' => 'IndicatorValueController@create'
+        ]);
+    });
+
 
     $router->group(['prefix' => '/indicators'], function () use ($router) {
         $router->get('/', [

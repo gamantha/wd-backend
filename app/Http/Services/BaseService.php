@@ -17,7 +17,7 @@ class BaseService {
    * get get all row paginated
    * @param $page Integer page number
    * @param $limit Integer maximum number of item to return
-   * @param $condition [Array] conditional
+   * @param $condition [Array] conditional : ex: [["name", "Andy"], ["category_id", 1]]
    * @param $sort [Array['key', 'value']] sort by. value being either `ASC` or `DESC`
    * @return ['total', 'data']. total: total of row in the database
    */

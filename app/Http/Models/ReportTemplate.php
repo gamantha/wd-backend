@@ -15,6 +15,12 @@ class ReportTemplate extends Model {
 
   public function report()
   {
-      return $this->belongsTo('App\Http\Models\Report');
+      return $this->belongsTo('App\Http\Models\Report', 'report_id');
   }
+
+  public function indicators()
+  {
+    return $this->belongsToMany('App\Http\Models\Indicator', 'report_indicator_map');
+  }
+
 }
