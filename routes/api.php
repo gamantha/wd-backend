@@ -81,6 +81,14 @@ $router->group(['prefix' => 'api/v1', 'middleware' => 'cognito-auth'], function 
         ]);
     });
 
+    $router->group(['prefix' => '/indicator_values'], function () use ($router) {
+        $router->post('/', [
+            'as' => 'indicatorValue',
+            'uses' => 'IndicatorValueController@create'
+        ]);
+    });
+
+
     $router->group(['prefix' => '/indicators'], function () use ($router) {
         $router->get('/', [
             'as' => 'indicators',
