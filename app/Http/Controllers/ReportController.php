@@ -7,6 +7,7 @@ use Illumintae\Validation\ValidationException;
 use App\Http\Builders\ResponseBuilder;
 use App\Http\Models\Report;
 use App\Http\Services\ReportService;
+use App\Http\Utils\RequestParser;
 
 class ReportController extends Controller
 {
@@ -55,7 +56,11 @@ class ReportController extends Controller
         $responseBuilder = new ResponseBuilder();
         $page = $request->input('page') ?: 1;
         $limit = $request->input('limit') ?: 10;
-        $report = $this->service->get($page, $limit);
+        $filter = $request->input('filters') ?: [];
+        $filters = RequestParser::parseFilter($filter);
+        $sort = $request->input('sort') ?: ['updated_at', 'DESC'];
+        $sorts = RequestParser::parseSort($sort);
+        $report = $this->service->get($page, $limit, $filters, $sorts);
         $response = $responseBuilder->setData($report['data'])->setMessage('fetched report successful')
             ->setTotal($report['total'])->setCount($limit)->setPage($page)
             ->setSuccess(true)->build();
