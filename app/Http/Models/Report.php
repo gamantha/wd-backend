@@ -4,6 +4,7 @@ namespace App\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Models\ReportTemplate;
+use App\Http\Models\IndicatorValue;
 
 class Report extends Model
 {
@@ -23,5 +24,10 @@ class Report extends Model
     public function getTemplateAttribute()
     {
         return  $this->template()->first();
+    }
+
+    public function indicatorValue()
+    {
+        return $this->hasMany(IndicatorValue::class);
     }
 }
