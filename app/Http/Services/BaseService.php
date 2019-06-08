@@ -14,7 +14,8 @@ class BaseService {
   }
 
   /**
-   * get get all row paginated
+   * get get all row paginated. Built resource url are: 
+   * /resource?filters[key]=value&filters[keyA]=valueA&sort=-Field
    * @param $page Integer page number
    * @param $limit Integer maximum number of item to return
    * @param $condition [Array] conditional : ex: [["name", "Andy"], ["category_id", 1]]
