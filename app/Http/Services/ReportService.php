@@ -2,6 +2,8 @@
 
 namespace App\Http\Services;
 
+use Barryvdh\DomPDF\Facade as PDF;
+
 /**
  * ReportService manage report
  */
@@ -36,7 +38,8 @@ class ReportService extends BaseService
 
     /**
      * exportCsv 
-     * @return csv file
+     * @param $id id of report to be exported
+     * @return csv file path
      */
     function exportCsv($id) {
         // report generated within the same hour will not be regenerated
@@ -45,14 +48,39 @@ class ReportService extends BaseService
             // if report was generated before, no need to extract data
             return $reportFilePath;
         }
-        $data = $this->model::where([['id', $id]])
-            ->with(['reportIndicatorMap.indicator', 'reportIndicatorMap.reportTemplate', 'indicatorValue'])
-            ->orderBy('id', 'ASC')->first()->toArray();
+        $data = $this->fetchReportingData($id);
         $this->writeCsv($reportFilePath, $data);
         return $reportFilePath;
     }
 
-    function writeCsv($reportFilePath, $data) {
+    /**
+     * exportPdf
+     * @param $id id of report to be exported
+     * @return pdf file download
+     */
+    function exportPdf($id) {
+        // \PDF::loadView('customer.customer');
+        
+        // report generated within the same hour will not be regenerated
+        $reportFilePath = \storage_path(date('d-m-Y:H') . '-report-' . $id . '.pdf');
+        if (file_exists($reportFilePath)) {
+            // if report was generated before, no need to extract data
+            return $reportFilePath;
+        }
+        $data = $this->fetchReportingData($id);
+        $result = $this->writePdf($reportFilePath, $data);
+        return $result;
+    }
+
+    private function fetchReportingData($id) {
+        $data = $this->model::where([['id', $id]])
+            ->with(['reportIndicatorMap.indicator', 'reportIndicatorMap.reportTemplate', 'indicatorValue'])
+            ->orderBy('id', 'ASC')->first()->toArray();
+        return $data;
+    }
+
+
+    private function writeCsv($reportFilePath, $data) {
         // open file to write
         $file = fopen($reportFilePath, 'w');
         // write header
@@ -72,4 +100,10 @@ class ReportService extends BaseService
         return true;
     }
 
+    private function writePdf($reportFilePath, $data) {
+        // open file to write
+        $pdf = app('dompdf.wrapper');
+        $pdfResult = $pdf->loadView('simple-report-pdf', $data);
+        return $pdfResult->download(date('d-m-Y:h') . '-report-pdf-' . $data['id'] . '.pdf');
+    }
 }

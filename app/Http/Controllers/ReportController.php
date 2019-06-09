@@ -69,9 +69,14 @@ class ReportController extends Controller
 
     public function exportCsv(Request $request, $id)
     {
-        $responseBuilder = new ResponseBuilder();
         $report = $this->service->exportCsv($id);
         return response()->download($report, 'report-' . $id . '.csv', ['Content-Type' => 'text/csv']);
+    }
+
+    public function exportPdf(Request $request, $id)
+    {
+        $report = $this->service->exportPdf($id);
+        return $report;
     }
 
     public function find($id)
