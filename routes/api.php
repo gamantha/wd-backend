@@ -79,6 +79,11 @@ $router->group(['prefix' => 'api/v1', 'middleware' => 'cognito-auth'], function 
             'as' => 'report',
             'uses' => 'ReportController@update'
         ]);
+
+        $router->get('/{id}/export/csv', [
+            'as' => 'report',
+        'uses' => 'ReportController@exportCsv'
+        ]);
     });
 
     $router->group(['prefix' => '/indicator_values'], function () use ($router) {

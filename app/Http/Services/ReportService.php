@@ -34,4 +34,42 @@ class ReportService extends BaseService
         ];
     }
 
+    /**
+     * exportCsv 
+     * @return csv file
+     */
+    function exportCsv($id) {
+        // report generated within the same hour will not be regenerated
+        $reportFilePath = \storage_path(date('d-m-Y:H') . '-report-' . $id . '.csv');
+        if (file_exists($reportFilePath)) {
+            // if report was generated before, no need to extract data
+            return $reportFilePath;
+        }
+        $data = $this->model::where([['id', $id]])
+            ->with(['reportIndicatorMap.indicator', 'reportIndicatorMap.reportTemplate', 'indicatorValue'])
+            ->orderBy('id', 'ASC')->first()->toArray();
+        $this->writeCsv($reportFilePath, $data);
+        return $reportFilePath;
+    }
+
+    function writeCsv($reportFilePath, $data) {
+        // open file to write
+        $file = fopen($reportFilePath, 'w');
+        // write header
+        \fputcsv($file, ['report ID', $data['id']]);
+        \fputcsv($file, ['author ID', $data['author_id']]);
+        \fputcsv($file, ['Report date', $data['report_date']]);
+        
+        // write column header
+        \fputcsv($file, ['No', 'Indicator', 'Value']);
+
+        // write body
+        foreach ($data['report_indicator_map'] as $rim) {
+            \fputcsv($file, [$rim['order'], $rim['indicator']['label'], $data['indicator_value'][0]['value']]);
+        }
+        // close file
+        \fclose($file);
+        return true;
+    }
+
 }
