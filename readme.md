@@ -10,3 +10,7 @@ Backend system to supply WD integration system.
 ### Run
 
 -   `php -S localhost:8080 -t public`
+
+### Tests
+
+-   run test `vendor/bin/phpunit` - make sure you've run `composer install` before running test

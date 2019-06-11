@@ -21,14 +21,12 @@ class CorsMiddleware
             'Access-Control-Max-Age'           => '86400',
             'Access-Control-Allow-Headers'     => 'Content-Type, Authorization, Accept, X-Requested-With, Application'
         ];
-
         if ($request->isMethod('OPTIONS')) {
-            return response()->json('{"method":"OPTIONS"}', 200, $headers);
+            return response()->json(['method' => 'OPTIONS'], 200, $headers);
         }
 
         $response = $next($request);
         foreach ($headers as $key => $value) {
-
             $response->headers->set($key, $value);
         }
 
