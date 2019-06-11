@@ -15,7 +15,7 @@ class IndicatorValue extends Model {
 
     public function indicator()
     {
-        return $this->hasOne('App\Http\Models\Indicator');
+        return $this->hasOne('App\Http\Models\Indicator', 'id', 'indicator_id');
     }
 
     public function report()

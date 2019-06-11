@@ -28,12 +28,19 @@ class ReportService extends BaseService
         $total = $this->model::count();
         $data = $this->model::where($condition)->limit($limit)
             ->offset(($page-1)*$limit)->orderBy($sort[0], $sort[1])
-            ->with(['template.indicators', 'indicatorValue'])
+            ->with(['template', 'indicatorValue.indicator'])
             ->get()->toArray();
         return [
             'total' => $total,
             'data' => $data,
         ];
+    }
+
+    function find($id) {
+        $data = $this->model::where(['id' => $id])
+            ->with(['indicatorValue', 'indicatorValue.indicator'])
+            ->first();
+        return $data;
     }
 
     /**
@@ -56,7 +63,7 @@ class ReportService extends BaseService
     /**
      * exportPdf
      * @param $id id of report to be exported
-     * @return pdf file download
+    * @return pdf file download
      */
     function exportPdf($id) {
         // \PDF::loadView('customer.customer');
