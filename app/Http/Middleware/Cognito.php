@@ -24,9 +24,9 @@ class Cognito
      * @param  \Illuminate\Contracts\Auth\Factory  $auth
      * @return void
      */
-    public function __construct(Auth $auth)
+    public function __construct()
     {
-        $this->auth = $auth;
+        // $this->auth = $auth;
         $this->cognitoService = new CognitoService();
     }
 
