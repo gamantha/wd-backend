@@ -38,8 +38,21 @@ class ReportService extends BaseService
 
     function find($id) {
         $data = $this->model::where(['id' => $id])
-            ->with(['indicatorValue', 'indicatorValue.indicator'])
+            ->with(['reportIndicatorMap.indicator', 'indicatorValues'])
             ->first();
+        $response = [];
+        $ivs = [];
+        foreach($data->indicatorValues as $iv) {
+            $ivs[$iv->indicator_id] = $iv;
+        }
+        $indicators = [];
+        foreach($data->reportIndicatorMap as $rim) {
+            $rim->indicator['indicator_value'] = $ivs[$rim->indicator_id];
+            array_push($indicators, $rim->indicator);
+        }
+        $data['indicators'] = $indicators;
+        unset($data['reportIndicatorMap']); 
+        unset($data['indicatorValues']); 
         return $data;
     }
 
@@ -66,8 +79,6 @@ class ReportService extends BaseService
     * @return pdf file download
      */
     function exportPdf($id) {
-        // \PDF::loadView('customer.customer');
-        
         // report generated within the same hour will not be regenerated
         $reportFilePath = \storage_path(date('d-m-Y:H') . '-report-' . $id . '.pdf');
         if (file_exists($reportFilePath)) {
