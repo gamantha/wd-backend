@@ -18,11 +18,11 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($report_indicator_map as $key => $indicator_map)
+            @foreach ($indicators as $indicator)
                 <tr>
-                    <td>{{ $indicator_map['order'] }}</td>
-                    <td>{{ $indicator_map['indicator']['label'] }}</td>
-                    <td> {{ $indicator_value[$key]['value'] }} </td>
+                    <td>{{ $indicator['order'] }}</td>
+                    <td>{{ $indicator['label'] }}</td>
+                    <td> {{ $indicator['indicator_value']['value'] }} </td>
                 </tr>
             @endforeach
         </tbody>

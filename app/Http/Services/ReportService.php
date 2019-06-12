@@ -92,8 +92,21 @@ class ReportService extends BaseService
 
     private function fetchReportingData($id) {
         $data = $this->model::where([['id', $id]])
-            ->with(['reportIndicatorMap.indicator', 'reportIndicatorMap.reportTemplate', 'indicatorValue'])
-            ->orderBy('id', 'ASC')->first()->toArray();
+            ->with(['reportIndicatorMap.indicator', 'reportIndicatorMap.reportTemplate', 'indicatorValues'])
+            ->orderBy('id', 'ASC')->first();
+        $ivs = [];
+        foreach($data->indicatorValues as $iv) {
+            $ivs[$iv->indicator_id] = $iv;
+        }
+        $indicators = [];
+        foreach($data->reportIndicatorMap as $rim) {
+            $rim->indicator['indicator_value'] = array_key_exists($rim->indicator_id, $ivs) ? $ivs[$rim->indicator_id]: null;
+            $rim->indicator['order'] = $rim->order;
+            array_push($indicators, $rim->indicator);
+        }
+        $data['indicators'] = $indicators;
+        unset($data['reportIndicatorMap']); 
+        unset($data['indicatorValues']); 
         return $data;
     }
 
@@ -110,8 +123,8 @@ class ReportService extends BaseService
         \fputcsv($file, ['No', 'Indicator', 'Value']);
 
         // write body
-        foreach ($data['report_indicator_map'] as $rim) {
-            \fputcsv($file, [$rim['order'], $rim['indicator']['label'], $data['indicator_value'][0]['value']]);
+        foreach ($data['indicators'] as $rim) {
+            \fputcsv($file, [$rim['order'], $rim['label'], $rim['indicator_value']['value']]);
         }
         // close file
         \fclose($file);
