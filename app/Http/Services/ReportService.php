@@ -36,7 +36,7 @@ class ReportService extends BaseService
         ];
     }
 
-    function find($id) {
+    function findDetail($id) {
         $data = $this->model::where(['id' => $id])
             ->with(['reportIndicatorMap.indicator', 'indicatorValues'])
             ->first();

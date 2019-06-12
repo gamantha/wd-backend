@@ -82,7 +82,7 @@ class ReportController extends Controller
     public function find($id)
     {
         $responseBuilder = new ResponseBuilder();
-        $report = $this->service->find($id);
+        $report = $this->service->findDetail($id);
         if ($report) {
             $response = $responseBuilder->setData($report)->setMessage('fetched report')->setSuccess(true)->build();
             return $response;
