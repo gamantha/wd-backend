@@ -58,7 +58,7 @@ class ReportController extends Controller
         $limit = $request->input('limit') ?: 10;
         $filter = $request->input('filters') ?: [];
         $filters = RequestParser::parseFilter($filter);
-        $sort = $request->input('sort') ?: ['updated_at', 'DESC'];
+        $sort = $request->input('sort') ?: 'updated_at';
         $sorts = RequestParser::parseSort($sort);
         $report = $this->service->get($page, $limit, $filters, $sorts);
         $response = $responseBuilder->setData($report['data'])->setMessage('fetched report successful')

@@ -28,7 +28,7 @@ class ReportService extends BaseService
         $total = $this->model::count();
         $data = $this->model::where($condition)->limit($limit)
             ->offset(($page-1)*$limit)->orderBy($sort[0], $sort[1])
-            ->with(['template', 'indicatorValue.indicator'])
+            ->with(['template.indicators', 'indicatorValues'])
             ->get()->toArray();
         return [
             'total' => $total,
@@ -47,7 +47,7 @@ class ReportService extends BaseService
         }
         $indicators = [];
         foreach($data->reportIndicatorMap as $rim) {
-            $rim->indicator['indicator_value'] = $ivs[$rim->indicator_id];
+            $rim->indicator['indicator_value'] = array_key_exists($rim->indicator_id, $ivs) ? $ivs[$rim->indicator_id]: null;
             array_push($indicators, $rim->indicator);
         }
         $data['indicators'] = $indicators;
