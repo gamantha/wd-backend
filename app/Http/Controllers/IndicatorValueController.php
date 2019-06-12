@@ -36,6 +36,7 @@ class IndicatorValueController extends Controller
         try {
             // validate request payload
             $this->validate($request, [
+                'status',
                 'report_values',
                 'report_id',
                 'report_values.*.indicator_id',
@@ -53,7 +54,7 @@ class IndicatorValueController extends Controller
             $report_template = $this->reportTemplateService->find($report->report_template_id);
             $indicators = $report_template->indicators()->get();
             $values = $request->input('report_values');
-            $this->service->insertValues($values, $indicators, $report->id);
+            $this->service->insertValues($values, $indicators, $report->id, $request->input('status'));
             $response = $responseBuilder->setData($values)->setMessage('report value inserted successfully')
                 ->setSuccess(true)->build();
             return $response;
