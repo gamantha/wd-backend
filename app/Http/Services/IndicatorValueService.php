@@ -25,27 +25,62 @@ class IndicatorValueService extends BaseService {
      */
     function insertValues($values, $indicators, $report_id, $status) {
         $indicatorIds = array_column($indicators->toArray(), 'id');
-        // run in db-transaction in case on of indicators fail
-        \DB::transaction(function() use ($values, $indicatorIds, $report_id, $status) {
-            foreach ($values as $value) {
-                if (in_array($value['indicator_id'], $indicatorIds)) {
-                    $indicatorValue = new IndicatorValue();
-                    $indicatorValue->value = $value['indicator_value'];
-                    $indicatorValue->indicator_id = $value['indicator_id'];
-                    $indicatorValue->report_id = $report_id;
-                    
-                    $indicatorValue->save();
-                } else {
-                    // roll back when fail
-                    \DB::rollBack();
-                    \Log::warning("invalid indicator provided : rolling back applied changes");
-                    throw new \Exception("InvalidIndicator", 1);
-                }
+        $report = Report::where([['id', $report_id]])->with(['template.indicators'])->first()->toArray();
+        $reportTemplateIds = array_column($report['template']['indicators'], 'id');
+        // make sure the submited indicator is correct as the report's template
+        foreach ($values as $value) {
+            if (!in_array($value['indicator_id'], $reportTemplateIds)) {
+                // throw error if does not match
+                throw new \Exception("InvalidIndicator", 1);
             }
-            $report = $this->reportService->find($report_id);
-            $report->status = $status ?: 1;
-            $this->reportService->save($report);
-        });
+        }
+        // get indicator values of report if exist
+        $reportIndicators = IndicatorValue::where([['report_id', $report_id]])->get();
+        if (count($reportIndicators) > 0) {
+            // update
+            $indicatorIds = array_column($reportIndicators->toArray(), 'indicator_id');
+            \DB::transaction(function() use ($values, $indicatorIds, $report_id, $status) {
+                foreach ($values as $value) {
+                    if (in_array($value['indicator_id'], $indicatorIds)) {
+                        $indicatorValue = IndicatorValue::where([['indicator_id', $value['indicator_id'], ['report_id', $report_id]]])->first();
+                        $indicatorValue->value = $value['indicator_value'];
+                        $indicatorValue->save();
+                    } else {
+                        // new field
+                        $indicatorValue = new IndicatorValue();
+                        $indicatorValue->value = $value['indicator_value'];
+                        $indicatorValue->indicator_id = $value['indicator_id'];
+                        $indicatorValue->report_id = $report_id;
+                        $indicatorValue->save();
+                    }
+                }
+                $report = $this->reportService->find($report_id);
+                $report->status = $status ?: 1;
+                $this->reportService->save($report);
+            });
+        } else {
+            // run in db-transaction in case on of indicators fail
+            \DB::transaction(function() use ($values, $indicatorIds, $report_id, $status) {
+                foreach ($values as $value) {
+                    if (in_array($value['indicator_id'], $indicatorIds)) {
+                        $indicatorValue = new IndicatorValue();
+                        $indicatorValue->value = $value['indicator_value'];
+                        $indicatorValue->indicator_id = $value['indicator_id'];
+                        $indicatorValue->report_id = $report_id;
+                        
+                        $indicatorValue->save();
+                    } else {
+                        // roll back when fail
+                        \DB::rollBack();
+                        \Log::warning("invalid indicator provided : rolling back applied changes");
+                        throw new \Exception("InvalidIndicator", 1);
+                    }
+                }
+                $report = $this->reportService->find($report_id);
+                $report->status = $status ?: 1;
+                $this->reportService->save($report);
+            });
+        }
     }
 
 }
