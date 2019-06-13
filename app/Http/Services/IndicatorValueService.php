@@ -25,11 +25,9 @@ class IndicatorValueService extends BaseService {
      */
     function insertValues($values, $indicators, $report_id, $status) {
         $indicatorIds = array_column($indicators->toArray(), 'id');
-        $report = Report::where([['id', $report_id]])->with(['template.indicators'])->first()->toArray();
-        $reportTemplateIds = array_column($report['template']['indicators'], 'id');
         // make sure the submited indicator is correct as the report's template
         foreach ($values as $value) {
-            if (!in_array($value['indicator_id'], $reportTemplateIds)) {
+            if (!in_array($value['indicator_id'], $indicatorIds)) {
                 // throw error if does not match
                 throw new \Exception("InvalidIndicator", 1);
             }
@@ -46,7 +44,7 @@ class IndicatorValueService extends BaseService {
                         $indicatorValue->value = $value['indicator_value'];
                         $indicatorValue->save();
                     } else {
-                        // new field
+                        // new field, it's ok to add the new field here, we already checked with the template before.
                         $indicatorValue = new IndicatorValue();
                         $indicatorValue->value = $value['indicator_value'];
                         $indicatorValue->indicator_id = $value['indicator_id'];
