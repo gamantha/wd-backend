@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Builders\ResponseBuilder;
 use App\Http\Models\Indicator;
+use App\Http\Models\IndicatorValue;
 use App\Http\Models\Report;
 use App\Http\Models\ReportTemplate;
 use App\Http\Services\IndicatorService;
@@ -27,7 +28,7 @@ class IndicatorValueController extends Controller
         $this->indicatorService = new IndicatorService(new Indicator());
         $this->reportTemplateService = new ReportTemplateService(new ReportTemplate());
         $this->reportService = new IndicatorService(new Report());
-        parent::__construct(new IndicatorValueService(new Report()));
+        parent::__construct(new IndicatorValueService(new IndicatorValue()));
     }
 
     public function create(Request $request)
@@ -36,9 +37,9 @@ class IndicatorValueController extends Controller
         try {
             // validate request payload
             $this->validate($request, [
-                'status',
                 'report_values',
                 'report_id',
+                'status',
                 'report_values.*.indicator_id',
                 'report_values.*.indicator_values'
             ]);
