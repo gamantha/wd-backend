@@ -12,5 +12,11 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // $this->call('UsersTableSeeder');
+        $this->call([
+            IndicatorCategorySeeder::class,
+            ReportTemplateSeeder::class,
+            LB3Seeder::class,
+            ReportIndicatorMapSeeder::class,
+        ]);
     }
 }
