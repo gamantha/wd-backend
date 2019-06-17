@@ -38,20 +38,22 @@ class ReportService extends BaseService
 
     function findDetail($id) {
         $data = $this->model::where(['id' => $id])
-            ->with(['reportIndicatorMap.indicator', 'indicatorValues'])
+            ->with(['template.indicators', 'indicatorValues'])
             ->first();
+        if (!$data) {
+            return null;
+        }
         $response = [];
         $ivs = [];
         foreach($data->indicatorValues as $iv) {
             $ivs[$iv->indicator_id] = $iv;
         }
         $indicators = [];
-        foreach($data->reportIndicatorMap as $rim) {
-            $rim->indicator['indicator_value'] = array_key_exists($rim->indicator_id, $ivs) ? $ivs[$rim->indicator_id]: null;
-            array_push($indicators, $rim->indicator);
+        foreach($data->template->indicators as $rim) {
+            $rim['indicator_value'] = array_key_exists($rim->id, $ivs) ? $ivs[$rim->id]: null;
+            array_push($indicators, $rim);
         }
         $data['indicators'] = $indicators;
-        unset($data['reportIndicatorMap']); 
         unset($data['indicatorValues']); 
         return $data;
     }
@@ -69,6 +71,10 @@ class ReportService extends BaseService
             return $reportFilePath;
         }
         $data = $this->fetchReportingData($id);
+        
+        if (!$data) {
+            return null;
+        }
         $this->writeCsv($reportFilePath, $data);
         return $reportFilePath;
     }
@@ -92,20 +98,22 @@ class ReportService extends BaseService
 
     private function fetchReportingData($id) {
         $data = $this->model::where([['id', $id]])
-            ->with(['reportIndicatorMap.indicator', 'reportIndicatorMap.reportTemplate', 'indicatorValues'])
+            ->with(['template.indicators', 'indicatorValues'])
             ->orderBy('id', 'ASC')->first();
+        if (!$data) {
+            return null;
+        }
         $ivs = [];
         foreach($data->indicatorValues as $iv) {
             $ivs[$iv->indicator_id] = $iv;
         }
         $indicators = [];
-        foreach($data->reportIndicatorMap as $rim) {
-            $rim->indicator['indicator_value'] = array_key_exists($rim->indicator_id, $ivs) ? $ivs[$rim->indicator_id]: null;
-            $rim->indicator['order'] = $rim->order;
-            array_push($indicators, $rim->indicator);
+        foreach($data->template->indicators as $rim) {
+            $rim['indicator_value'] = array_key_exists($rim->id, $ivs) ? $ivs[$rim->id]: null;
+            $rim['order'] = $rim->pivot->order;
+            array_push($indicators, $rim);
         }
         $data['indicators'] = $indicators;
-        unset($data['reportIndicatorMap']); 
         unset($data['indicatorValues']); 
         return $data;
     }
@@ -121,7 +129,6 @@ class ReportService extends BaseService
         
         // write column header
         \fputcsv($file, ['No', 'Indicator', 'Value']);
-
         // write body
         foreach ($data['indicators'] as $rim) {
             \fputcsv($file, [$rim['order'], $rim['label'], $rim['indicator_value']['value']]);
