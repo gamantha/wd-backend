@@ -4,6 +4,7 @@ namespace App\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Models\Report;
+use App\Http\Models\Indicator;
 
 class IndicatorValue extends Model {
 
@@ -15,12 +16,12 @@ class IndicatorValue extends Model {
 
     public function indicator()
     {
-        return $this->hasOne('App\Http\Models\Indicator', 'id', 'indicator_id');
+        return $this->hasOne(Indicator::class, 'id', 'indicator_id');
     }
 
     public function report()
     {
-        return $this->hasOne('App\Http\Models\Report');
+        return $this->hasOne(Report::class);
     }
 
 }

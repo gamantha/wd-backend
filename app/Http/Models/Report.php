@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Http\Models\ReportTemplate;
 use App\Http\Models\IndicatorValue;
 use App\Http\Models\Indicator;
-// use App\Http\Models\ReportIndicatorMap;
+use App\Http\Models\ReportIndicatorMap;
 
 class Report extends Model
 {
@@ -20,7 +20,7 @@ class Report extends Model
 
     public function template()
     {
-        return $this->belongsTo(ReportTemplate::class, 'report_template_id', 'id');
+        return $this->hasOne(ReportTemplate::class, 'id', 'report_template_id');
     }
 
     public function getTemplateAttribute()
@@ -32,10 +32,4 @@ class Report extends Model
     {
         return $this->hasMany(IndicatorValue::class, 'report_id', 'id');
     }
-
-    public function reportIndicatorMap()
-    {
-        return $this->hasMany(ReportIndicatorMap::class, 'report_template_id');
-    }
-
 }
