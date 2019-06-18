@@ -3,10 +3,6 @@
 namespace App\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Http\Models\ReportTemplate;
-use App\Http\Models\IndicatorValue;
-use App\Http\Models\Indicator;
-use App\Http\Models\ReportIndicatorMap;
 
 class Report extends Model
 {
@@ -32,4 +28,9 @@ class Report extends Model
     {
         return $this->hasMany(IndicatorValue::class, 'report_id', 'id');
     }
+
+    // public function indicators()
+    // {
+        // return $this->belongsToMany(Indicator::class, ReportIndicator);
+    // }
 }
