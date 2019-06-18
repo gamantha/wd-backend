@@ -29,12 +29,11 @@ class ReportController extends Controller
             $this->validate($request, [
                 'report_template_id' => 'required',
                 'report_date' => 'required',
-                'status' => 'required',
             ]);
             $data = new Report();
             $data->report_template_id = $request->input('report_template_id');
             $data->report_date = $request->input('report_date');
-            $data->status = $request->input('status');
+            $data->status = 1;
             $data->author_id = $request->auth->username; // TODO: get auth from middleware
             $report = $this->service->save($data);
             $response = $responseBuilder->setData($report)->setMessage('report created successfully')
