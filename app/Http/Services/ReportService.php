@@ -98,22 +98,34 @@ class ReportService extends BaseService
 
     private function fetchReportingData($id) {
         $data = $this->model::where([['id', $id]])
-            ->with(['template.indicators', 'indicatorValues'])
+            ->with(['template.indicators', 'indicatorValues', 'template.indicatorCategories'])
             ->orderBy('id', 'ASC')->first();
+
         if (!$data) {
             return null;
         }
+
         $ivs = [];
         foreach($data->indicatorValues as $iv) {
             $ivs[$iv->indicator_id] = $iv;
         }
         $indicators = [];
-        foreach($data->template->indicators as $rim) {
-            $rim['indicator_value'] = array_key_exists($rim->id, $ivs) ? $ivs[$rim->id]: null;
-            $rim['order'] = $rim->pivot->order;
-            array_push($indicators, $rim);
+        $categorizedIndicators = collect($data->template->indicators)->groupBy('pivot.category_id')->toArray();
+        // dd($categorizedIndicators);
+        // $categories = collect($data->template->indicatorCategories)->get(3);
+        foreach($categorizedIndicators as $catInd) {
+            $categoryId = $catInd[0]['pivot']['category_id'];
+            $catInds = collect($data->template->indicatorCategories)->get($categoryId);
+            $temp = [];
+            foreach($catInd as $ind) {
+                $ind['indicator_value'] = array_key_exists($ind['id'], $ivs) ? $ivs[$ind['id']]: null;
+                $ind['order'] = $ind['pivot']['order'];
+                array_push($temp, $ind);
+            }
+            $catInds['indicators'] = $temp;
+            array_push($indicators, $catInds);
         }
-        $data['indicators'] = $indicators;
+        $data['categories'] = $indicators;
         unset($data['indicatorValues']); 
         return $data;
     }
@@ -130,8 +142,10 @@ class ReportService extends BaseService
         // write column header
         \fputcsv($file, ['No', 'Indicator', 'Value']);
         // write body
-        foreach ($data['indicators'] as $rim) {
-            \fputcsv($file, [$rim['order'], $rim['label'], $rim['indicator_value']['value']]);
+        foreach ($data['categories'] as $cat) {
+            foreach ($cat['indicators'] as $rim) {
+                \fputcsv($file, [$rim['order'], $rim['label'], $rim['indicator_value']['value']]);
+            }
         }
         // close file
         \fclose($file);

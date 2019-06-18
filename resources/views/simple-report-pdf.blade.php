@@ -52,11 +52,16 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($indicators as $indicator)
+            @foreach ($categories as $category)
                 <tr>
-                    <td>{{ $indicator['label'] }}</td>
-                    <td style="text-align: center"> {{ $indicator['indicator_value']['value'] ? $indicator['indicator_value']['value'] : 0 }} </td>
+                    <td> {{ $category['name'] }} </td>
                 </tr>
+                @foreach ($category->indicators as $indicator)
+                    <tr>
+                        <td>{{ $indicator['label'] }}</td>
+                        <td style="text-align: center"> {{ $indicator['indicator_value']['value'] ? $indicator['indicator_value']['value'] : 0 }} </td>
+                    </tr>
+                @endforeach
             @endforeach
         </tbody>
     </table>

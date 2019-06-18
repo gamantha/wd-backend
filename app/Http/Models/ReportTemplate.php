@@ -3,9 +3,6 @@
 namespace App\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Http\Models\Report;
-use App\Http\Models\ReportIndicatorMap;
-use App\Http\Models\Indicator;
 
 class ReportTemplate extends Model {
 
@@ -22,7 +19,12 @@ class ReportTemplate extends Model {
 
   public function indicators()
   {
-    return $this->belongsToMany(Indicator::class, ReportIndicatorMap::class, 'report_template_id', 'indicator_id')->withPivot('order');
+    return $this->belongsToMany(Indicator::class, ReportIndicatorMap::class, 'report_template_id', 'indicator_id')->withPivot('order', 'category_id');
+  }
+
+  public function indicatorCategories()
+  {
+    return $this->belongsToMany(IndicatorCategory::class, ReportIndicatorMap::class, 'report_template_id', 'category_id');
   }
 
 }
