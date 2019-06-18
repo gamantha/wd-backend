@@ -3,8 +3,6 @@
 namespace App\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Http\Models\Indicator;
-use App\Http\Models\ReportIndicatorMap;
 
 class IndicatorCategory extends Model {
 
