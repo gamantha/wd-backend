@@ -136,6 +136,7 @@ class ReportService extends BaseService
         $file = fopen($reportFilePath, 'w');
         // write header
         \fputcsv($file, ['report ID', $data['id']]);
+        \fputcsv($file, ['report name', $data['name']]);
         \fputcsv($file, ['author ID', $data['author_id']]);
         \fputcsv($file, ['Report date', $data['report_date']]);
         
