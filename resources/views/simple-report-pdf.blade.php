@@ -49,7 +49,7 @@
             @foreach ($categories as $category)
                 <tr>
                     <td style="font-weight: 700;"> Category Name </td>
-                    <td></td>
+                    <td style="text-align: center">Jumlah</td>
                 </tr>
                 @foreach ($category['indicators'] as $indicator)
                     <tr>
