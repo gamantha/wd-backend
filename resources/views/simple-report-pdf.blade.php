@@ -45,18 +45,13 @@
         </tr>
     </table>
     <table class="indicators" width="100%" style="margin-top: 20px; font-size: 12px;">
-        <thead>
-            <tr>
-                <th>Indicator Name</th>
-                <th style="width: 50px;">Jumlah</th>
-            </tr>
-        </thead>
         <tbody>
             @foreach ($categories as $category)
                 <tr>
-                    <td> {{ $category['name'] }} </td>
+                    <td style="font-weight: 700;"> Category Name </td>
+                    <td style="text-align: center">Jumlah</td>
                 </tr>
-                @foreach ($category->indicators as $indicator)
+                @foreach ($category['indicators'] as $indicator)
                     <tr>
                         <td>{{ $indicator['label'] }}</td>
                         <td style="text-align: center"> {{ $indicator['indicator_value']['value'] ? $indicator['indicator_value']['value'] : 0 }} </td>
