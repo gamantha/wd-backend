@@ -336,7 +336,7 @@ class LB3Seeder extends Seeder
                     'updated_at' => date("Y-m-d H:i:s"),
                 ], [
                     // 'id' => 38,
-                    // 'category_id' =>23 ,
+                    // 'category_id' => 23 ,
                     'name' => 'K3',
                     'label' => 'K3',
                     'unit_label' => ' ',
@@ -705,7 +705,7 @@ class LB3Seeder extends Seeder
                     'updated_at' => date("Y-m-d H:i:s"),
                 ],[
                     // 'id' => 84,
-                    // 'category_id' =>25,
+                    // 'category_id' => 25,
                     'name' => 'Akseptor baru Buteki',
                     'label' => 'Akseptor baru Buteki',
                     'unit_label' => ' ',
@@ -1039,7 +1039,7 @@ class LB3Seeder extends Seeder
                     'unit_label' => ' ',
                     'created_at' => date("Y-m-d H:i:s"),
                     'updated_at' => date("Y-m-d H:i:s"),
-                ],[ // TODO: Missing id after this id + 1
+                ],[ // TODO: Missing id, after this id + 1
                     // 'id' => 125,
                     // 'category_id' => 29,
                     'name' => 'Jumlah kasus tetanus neonatorum ditemukan',
@@ -1180,7 +1180,7 @@ class LB3Seeder extends Seeder
                 ],
                 [
                     // 'id' => 142,
-                    // 'category_id' =>34 ,
+                    // 'category_id' => 34 ,
                     'name' => 'Jumlah desa dengan cakupan pengobatan massal > 80 %',
                     'label' => 'Jumlah desa dengan cakupan pengobatan massal > 80 %',
                     'unit_label' => ' ',
