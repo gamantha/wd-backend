@@ -76,11 +76,13 @@ class ReportTemplateController extends Controller
       try {
         $this->validate($request, [
           'name' => 'required',
-          'label' => 'required'
+          'label' => 'required',
+          'report_type' => 'required',
         ]);
         $data = new ReportTemplate();
         $data->name = $request->input('name');
         $data->label = $request->input('label');
+        $data->report_type = $request->input('report_type');
         $data->author_id = $request->auth->username;
         $reportTemplate = $this->service->save($data);
         $response = $responseBuilder->setData($reportTemplate)->setMessage('report template created successfully')
@@ -103,11 +105,13 @@ class ReportTemplateController extends Controller
         $this->validate($request, [
           'name' => 'required',
           'label' => 'required',
+          'report_type' => 'required',
         ]);
         $data = $this->service->find($id);
         if ($data) {
           $data->name = $request->input('name');
           $data->label = $request->input('label');
+          $data->report_type = $request->input('report_type');
           $data->author_id = $request->auth->username;
           $reportTemplate = $this->service->save($data);
           $response = $responseBuilder->setData($reportTemplate)->setMessage('report template updated successfully')

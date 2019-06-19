@@ -9,7 +9,7 @@ class ReportTemplate extends Model {
   protected $table = 'report_template';
 
   protected $fillable = [
-    'name', 'label', 'author_id'
+    'name', 'label', 'author_id', 'report_type'
   ];
 
   public function report()

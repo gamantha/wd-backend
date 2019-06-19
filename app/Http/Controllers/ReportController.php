@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illumintae\Validation\ValidationException;
+use Illuminate\Validation\ValidationException;
 use App\Http\Builders\ResponseBuilder;
 use App\Http\Models\Report;
 use App\Http\Services\ReportService;
@@ -29,10 +29,12 @@ class ReportController extends Controller
             $this->validate($request, [
                 'report_template_id' => 'required',
                 'report_date' => 'required',
+                'name' => 'required',
             ]);
             $data = new Report();
             $data->report_template_id = $request->input('report_template_id');
             $data->report_date = $request->input('report_date');
+            $data->name = $request->input('name');
             $data->status = 1;
             $data->author_id = $request->auth->username; // TODO: get auth from middleware
             $report = $this->service->save($data);
@@ -108,12 +110,14 @@ class ReportController extends Controller
                 'report_template_id' => 'required',
                 'report_date' => 'required',
                 'status' => 'required',
+                'name' => 'required',
             ]);
             $data = $this->service->find($id);
             if ($data) {
                 $data->report_template_id = $request->input('report_template_id');
                 $data->report_date = $request->input('report_date');
                 $data->status = $request->input('status');
+                $data->name = $request->input('name');
                 $data->author_id = $request->auth->username;
                 $report = $this->service->save($data);
                 $response = $responseBuilder->setData($report)->setMessage('report updated successfully')
