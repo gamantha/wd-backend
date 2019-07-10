@@ -111,8 +111,6 @@ class ReportService extends BaseService
         }
         $indicators = [];
         $categorizedIndicators = collect($data->template->indicators)->groupBy('pivot.category_id')->toArray();
-        // dd($categorizedIndicators);
-        // $categories = collect($data->template->indicatorCategories)->get(3);
         foreach($categorizedIndicators as $catInd) {
             $categoryId = $catInd[0]['pivot']['category_id'];
             $catInds = collect($data->template->indicatorCategories)->get($categoryId);
@@ -125,7 +123,14 @@ class ReportService extends BaseService
             $catInds['indicators'] = $temp;
             array_push($indicators, $catInds);
         }
-        $data['categories'] = $indicators;
+        $parentCategory = collect($indicators)->groupBy('parent_category_id');
+        $parentCategories = [];
+        foreach($parentCategory->toArray() as $pc) {
+            $pcTemp = $parentCategory->get($pc[0]['parent_category_id']);
+            $pcTemp['categories'] = $pc;
+            array_push($parentCategories, $pcTemp);
+        }
+        $data['categories'] = $parentCategories;
         unset($data['indicatorValues']); 
         return $data;
     }
