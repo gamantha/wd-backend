@@ -165,7 +165,6 @@ class ReportService extends BaseService
             }
         }
         $data['categories'] = $parentCategories;
-        dd($data->toArray());
         unset($data['indicatorValues']); 
         unset($data['template']); 
         return $data;
