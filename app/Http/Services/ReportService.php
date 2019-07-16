@@ -2,6 +2,8 @@
 
 namespace App\Http\Services;
 
+use App\Http\Models\IndicatorCategory;
+use App\Http\Models\Indicator;
 use Barryvdh\DomPDF\Facade as PDF;
 
 /**
@@ -9,9 +11,14 @@ use Barryvdh\DomPDF\Facade as PDF;
  */
 class ReportService extends BaseService
 {
+    private $categoryModel;
+    private $indicatorModel;
+    
     function __construct($model)
     {
         parent::__construct($model);
+        $this->categoryModel = new IndicatorCategory();
+        $this->indicatorModel = new Indicator();
     }
 
     /**
@@ -107,26 +114,59 @@ class ReportService extends BaseService
 
         $ivs = [];
         foreach($data->indicatorValues as $iv) {
-            $ivs[$iv->indicator_id] = $iv;
+            $ivs[$iv->indicator_id] = $iv->toArray();
         }
         $indicators = [];
         $categorizedIndicators = collect($data->template->indicators)->groupBy('pivot.category_id')->toArray();
-        // dd($categorizedIndicators);
-        // $categories = collect($data->template->indicatorCategories)->get(3);
-        foreach($categorizedIndicators as $catInd) {
+        // nesting indicator to indicator parents
+        // grouping indicators to category
+        foreach($categorizedIndicators as $catInd) { // loop through every category
             $categoryId = $catInd[0]['pivot']['category_id'];
-            $catInds = collect($data->template->indicatorCategories)->get($categoryId);
+            $catInds = $this->categoryModel::where('id', $categoryId)->first()->toArray();; // get current category object
             $temp = [];
-            foreach($catInd as $ind) {
+            foreach($catInd as $ind) { // loop through every indicator in current category and bind them key:value
                 $ind['indicator_value'] = array_key_exists($ind['id'], $ivs) ? $ivs[$ind['id']]: null;
                 $ind['order'] = $ind['pivot']['order'];
                 array_push($temp, $ind);
             }
-            $catInds['indicators'] = $temp;
+            // nest indicator to its parent
+            $inds = collect($temp)->groupBy('indicator_parent_id')->toArray();
+            $indicatorList = [];
+            foreach($inds as $ind) {
+                $indicatorParent = $ind[0]['indicator_parent_id'] != null ? $this->indicatorModel::where('id', $ind[0]['indicator_parent_id'])->first() : null;
+
+                if ($indicatorParent == null) {
+                    // flatten
+                    foreach($ind as $i) {
+                        array_push($indicatorList, $i);
+                    }
+                } else {
+                    $indicatorParentArr = $indicatorParent->toArray();
+                    $indicatorParentArr['child'] = $ind;
+                    array_push($indicatorList, $indicatorParentArr);
+                }
+            }
+            $catInds['indicators'] = $indicatorList; // glue indicators to current category object
             array_push($indicators, $catInds);
         }
-        $data['categories'] = $indicators;
+        $parentCategory = collect($indicators)->groupBy('parent_category_id');
+        $parentCategories = [];
+        // nesting categories to parent categories
+        foreach($parentCategory->toArray() as $pc) {
+            $pcTemp = $pc[0]['parent_category_id'] != null ? $this->categoryModel::where('id', $pc[0]['parent_category_id'])->first() : null;
+            if ($pcTemp == null) {
+                foreach($pc as $p) {
+                    array_push($parentCategories, $p);
+                }
+            } else {
+                $pcTempArr = $pcTemp->toArray();
+                $pcTempArr['child'] = $pc;
+                array_push($parentCategories, $pcTempArr);
+            }
+        }
+        $data['categories'] = $parentCategories;
         unset($data['indicatorValues']); 
+        unset($data['template']); 
         return $data;
     }
 
