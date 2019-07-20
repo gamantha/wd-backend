@@ -13,7 +13,7 @@ class ReportService extends BaseService
 {
     private $categoryModel;
     private $indicatorModel;
-    
+
     function __construct($model)
     {
         parent::__construct($model);
@@ -23,7 +23,7 @@ class ReportService extends BaseService
 
     /**
     * override get method
-    * get get all row paginated. Built resource url are: 
+    * get get all row paginated. Built resource url are:
     * /resource?filters[key]=value&filters[keyA]=valueA&sort=-Field
     * @param $page Integer page number
     * @param $limit Integer maximum number of item to return
@@ -61,12 +61,12 @@ class ReportService extends BaseService
             array_push($indicators, $rim);
         }
         $data['indicators'] = $indicators;
-        unset($data['indicatorValues']); 
+        unset($data['indicatorValues']);
         return $data;
     }
 
     /**
-     * exportCsv 
+     * exportCsv
      * @param $id id of report to be exported
      * @return csv file path
      */
@@ -78,7 +78,7 @@ class ReportService extends BaseService
             return $reportFilePath;
         }
         $data = $this->fetchReportingData($id);
-        
+
         if (!$data) {
             return null;
         }
@@ -165,8 +165,8 @@ class ReportService extends BaseService
             }
         }
         $data['categories'] = $parentCategories;
-        unset($data['indicatorValues']); 
-        unset($data['template']); 
+        unset($data['indicatorValues']);
+        unset($data['template']);
         return $data;
     }
 
@@ -175,19 +175,27 @@ class ReportService extends BaseService
         // open file to write
         $file = fopen($reportFilePath, 'w');
         // write header
-        \fputcsv($file, ['report ID', $data['id']]);
-        \fputcsv($file, ['report name', $data['name']]);
-        \fputcsv($file, ['author ID', $data['author_id']]);
+        \fputcsv($file, ['Report ID', $data['id']]);
+        \fputcsv($file, ['Report name', $data['name']]);
+        \fputcsv($file, ['Author ID', $data['author_id']]);
         \fputcsv($file, ['Report date', $data['report_date']]);
-        
+
         // write column header
-        \fputcsv($file, ['No', 'Indicator', 'Value']);
+        // \fputcsv($file, ['No', 'Indicator', 'Value']);
         // write body
         foreach ($data['categories'] as $cat) {
-            foreach ($cat['indicators'] as $rim) {
-                \fputcsv($file, [$rim['order'], $rim['label'], $rim['indicator_value']['value']]);
+            foreach ($cat['child'] as $child) {
+                $category = $cat['name'] . ': '.$child['name'];
+                \fputcsv($file, [$category, 'Jumlah']);
+                foreach ($child['indicators'] as $indicator) {
+                    $indicatorName = $indicator['label'] ;
+                    $indicatorValue= $indicator['indicator_value'];
+                    \fputcsv($file, [$indicatorName, $indicatorValue]);
+
+                }
             }
         }
+
         // close file
         \fclose($file);
         return true;
