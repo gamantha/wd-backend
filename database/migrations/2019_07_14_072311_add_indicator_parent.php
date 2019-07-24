@@ -26,6 +26,8 @@ class AddIndicatorParent extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('indicator', function (Blueprint $table) {
+            $table->dropColumn(['indicator_parent_id']);
+        });
     }
 }
