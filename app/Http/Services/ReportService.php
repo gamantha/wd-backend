@@ -65,45 +65,7 @@ class ReportService extends BaseService
         return $data;
     }
 
-    /**
-     * exportCsv
-     * @param $id id of report to be exported
-     * @return csv file path
-     */
-    function exportCsv($id) {
-        // report generated within the same hour will not be regenerated
-        $reportFilePath = \storage_path(date('d-m-Y:H') . '-report-' . $id . '.csv');
-        if (file_exists($reportFilePath)) {
-            // if report was generated before, no need to extract data
-            return $reportFilePath;
-        }
-        $data = $this->fetchReportingData($id);
-
-        if (!$data) {
-            return null;
-        }
-        $this->writeCsv($reportFilePath, $data);
-        return $reportFilePath;
-    }
-
-    /**
-     * exportPdf
-     * @param $id id of report to be exported
-    * @return pdf file download
-     */
-    function exportPdf($id) {
-        // report generated within the same hour will not be regenerated
-        $reportFilePath = \storage_path(date('d-m-Y:H') . '-report-' . $id . '.pdf');
-        if (file_exists($reportFilePath)) {
-            // if report was generated before, no need to extract data
-            return $reportFilePath;
-        }
-        $data = $this->fetchReportingData($id);
-        $result = $this->writePdf($reportFilePath, $data);
-        return $result;
-    }
-
-    private function fetchReportingData($id) {
+    public function fetchReportingData($id) {
         $data = $this->model::where([['id', $id]])
             ->with(['template.indicators', 'indicatorValues', 'template.indicatorCategories'])
             ->orderBy('id', 'ASC')->first();
@@ -168,43 +130,5 @@ class ReportService extends BaseService
         unset($data['indicatorValues']);
         unset($data['template']);
         return $data;
-    }
-
-
-    private function writeCsv($reportFilePath, $data) {
-        // open file to write
-        $file = fopen($reportFilePath, 'w');
-        // write header
-        \fputcsv($file, ['Report ID', $data['id']]);
-        \fputcsv($file, ['Report name', $data['name']]);
-        \fputcsv($file, ['Author ID', $data['author_id']]);
-        \fputcsv($file, ['Report date', $data['report_date']]);
-
-        // write column header
-        // \fputcsv($file, ['No', 'Indicator', 'Value']);
-        // write body
-        foreach ($data['categories'] as $cat) {
-            foreach ($cat['child'] as $child) {
-                $category = $cat['name'] . ': '.$child['name'];
-                \fputcsv($file, [$category, 'Jumlah']);
-                foreach ($child['indicators'] as $indicator) {
-                    $indicatorName = $indicator['label'] ;
-                    $indicatorValue= $indicator['indicator_value'];
-                    \fputcsv($file, [$indicatorName, $indicatorValue]);
-
-                }
-            }
-        }
-
-        // close file
-        \fclose($file);
-        return true;
-    }
-
-    private function writePdf($reportFilePath, $data) {
-        // open file to write
-        $pdf = app('dompdf.wrapper');
-        $pdfResult = $pdf->loadView('simple-report-pdf', $data);
-        return $pdfResult->download(date('d-m-Y:h') . '-report-pdf-' . $data['id'] . '.pdf');
     }
 }
