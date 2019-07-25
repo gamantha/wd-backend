@@ -80,14 +80,9 @@ $router->group(['prefix' => 'api/v1', 'middleware' => 'cognito-auth'], function 
             'uses' => 'ReportController@update'
         ]);
 
-        $router->get('/{id}/export/csv', [
+        $router->get('/{id}/export', [
             'as' => 'report',
-        'uses' => 'ReportController@exportCsv'
-        ]);
-
-        $router->get('/{id}/export/pdf', [
-            'as' => 'report',
-        'uses' => 'ReportController@exportPdf'
+        'uses' => 'ReportController@fetchReportingData'
         ]);
     });
 

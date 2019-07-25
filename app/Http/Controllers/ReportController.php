@@ -68,23 +68,19 @@ class ReportController extends Controller
         return $response;
     }
 
-    public function exportCsv(Request $request, $id)
+    public function fetchReportingData(Request $request, $id)
     {
         $responseBuilder = new ResponseBuilder();
-        $report = $this->service->exportCsv($id);
+        $report = $this->service->fetchReportingData($id);
         if (!$report) {
             $response = $responseBuilder->setData($report)
                 ->setMessage('report with id: ' . $id . ' not found')
                 ->setSuccess(false)->setStatus(404)->build();
             return $response;
         }
-        return response()->download($report, 'report-' . $id . '.csv', ['Content-Type' => 'text/csv']);
-    }
-
-    public function exportPdf(Request $request, $id)
-    {
-        $report = $this->service->exportPdf($id);
-        return $report;
+        return $responseBuilder->setData($report)
+                ->setMessage('report data fetched')
+                ->setSuccess(true)->setStatus(200)->build();
     }
 
     public function find($id)
