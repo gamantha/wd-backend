@@ -53,12 +53,14 @@ class IndicatorController extends Controller
         $this->validate($request, [
           'name' => 'required',
           'label' => 'required',
-          'unit_label' => 'required'
+          'unit_label' => 'required',
+          'is_parent' => 'required'
         ]);
         $data = new Indicator();
         $data->name = $request->input('name');
         $data->label = $request->input('label');
         $data->unit_label = $request->input('unit_label');
+        $data->is_parent = $request->input('is_parent');
         $indicator = $this->service->save($data);
         $response = $responseBuilder->setData($indicator)->setMessage('indicator created successfully')
           ->setSuccess(true)->build();
@@ -81,12 +83,14 @@ class IndicatorController extends Controller
           'name' => 'required',
           'label' => 'required',
           'unit_label' => 'required',
+          'is_parent' => 'required',
         ]);
         $data = $this->service->find($id);
         if ($data) {
           $data->name = $request->input('name');
           $data->label = $request->input('label');
           $data->unit_label = $request->input('unit_label');
+          $data->is_parent = $request->input('is_parent');
           $indicator = $this->service->save($data);
           $response = $responseBuilder->setData($indicator)->setMessage('indicator updated successfully')
             ->setSuccess(true)->build();

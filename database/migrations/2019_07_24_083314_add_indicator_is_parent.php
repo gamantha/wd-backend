@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddIndicatorParent extends Migration
+class AddIndicatorIsParent extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,7 @@ class AddIndicatorParent extends Migration
     public function up()
     {
         Schema::table('indicator', function (Blueprint $table) {
-            $table->integer('indicator_parent_id')->nullable();
-            $table->index(['indicator_parent_id']);
+            $table->boolean('is_parent');
         });
     }
 
@@ -27,7 +26,7 @@ class AddIndicatorParent extends Migration
     public function down()
     {
         Schema::table('indicator', function (Blueprint $table) {
-            $table->dropColumn(['indicator_parent_id']);
+            $table->dropColumn(['is_parent']);
         });
     }
 }

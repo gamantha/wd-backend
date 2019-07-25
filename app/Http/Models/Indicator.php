@@ -9,7 +9,7 @@ class Indicator extends Model {
   protected $table = 'indicator';
 
   protected $fillable = [
-    'name', 'label', 'unit_label'
+    'name', 'label', 'unit_label', 'is_parent'
   ];
 
 
