@@ -141,4 +141,19 @@ $router->group(['prefix' => 'api/v1', 'middleware' => 'cognito-auth'], function 
             'uses' => 'MorbidityController@delete'
         ]);
     });
+    
+    $router->group(['prefix' => '/charts'], function() use ($router) {
+        $router->get('/', [
+            'as' => 'charts',
+            'uses' => 'ChartController@get'
+        ]);
+        $router->get('/{id}', [
+            'as' => 'charts',
+            'uses' => 'ChartController@find'
+        ]);
+        $router->post('/', [
+            'as' => 'charts',
+            'uses' => 'ChartController@create'
+        ]);
+    });
 });
