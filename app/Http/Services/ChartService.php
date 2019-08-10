@@ -47,4 +47,12 @@ class ChartService extends BaseService {
     }
   } 
 
+  function get($page = 1, $limit = 10, $condition=[], $sort=['created_at', 'DESC']) {
+    $total = $this->model::count();
+    $data = $this->model::with('indicatorValue.indicator')->where($condition)->limit($limit)->offset(($page-1)*$limit)->orderBy($sort[0], $sort[1])->get()->toArray();
+    return [
+      'total' => $total,
+      'data' => $data,
+    ];
+  }
 }

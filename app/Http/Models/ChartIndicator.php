@@ -2,9 +2,9 @@
 
 namespace App\Http\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class ChartIndicator extends Model {
+class ChartIndicator extends Pivot {
 
     protected $table = 'chart_indicator';
 
