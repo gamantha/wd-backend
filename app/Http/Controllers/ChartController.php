@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use App\Http\Services\ChartService;
 use App\Http\Builders\ResponseBuilder;
+use App\Http\Utils\RequestParser;
+
 use App\Http\Models\Chart;
 
 class ChartController extends Controller
@@ -37,5 +39,20 @@ class ChartController extends Controller
             return $response;
         }
         return $responseBuilder->build();
+    }
+
+    public function get(Request $request) {
+        $responseBuilder = new ResponseBuilder();
+        $page = $request->input('page') ?: 1;
+        $limit = $request->input('limit') ?: 10;
+        $filter = $request->input('filters') ?: [];
+        $filters = RequestParser::parseFilter($filter);
+        $sort = $request->input('sort') ?: 'updated_at';
+        $sorts = RequestParser::parseSort($sort);
+        $charts = $this->service->get($page, $limit, $filters, $sorts);
+        $response = $responseBuilder->setData($charts['data'])->setMessage('fetched report successful')
+            ->setTotal($charts['total'])->setCount($limit)->setPage($page)
+            ->setSuccess(true)->build();
+        return $response;
     }
 }
