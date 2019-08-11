@@ -1,612 +1,882 @@
 {
-    "info": {
-        "_postman_id": "28f0069a-9403-4e69-a43b-a1d95b12a09a",
-        "name": "WD-gamantha",
-        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-    },
-    "item": [
-        {
-            "name": "misc",
-            "item": [
-                {
-                    "name": "checkToken",
-                    "request": {
-                        "method": "GET",
-                        "header": [
-                            {
-                                "key": "access_token",
-                                "value": "{{AccessToken}}",
-                                "type": "text"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": ""
-                        },
-                        "url": {
-                            "raw": "{{Host}}/checkToken",
-                            "host": ["{{Host}}"],
-                            "path": ["checkToken"]
-                        }
-                    },
-                    "response": []
-                }
-            ]
-        },
-        {
-            "name": "report",
-            "item": [
-                {
-                    "name": "get",
-                    "request": {
-                        "method": "GET",
-                        "header": [
-                            {
-                                "key": "access_token",
-                                "value": "{{AccessToken}}",
-                                "type": "text"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": ""
-                        },
-                        "url": {
-                            "raw": "{{Host}}/report?page=1&limit=1",
-                            "host": ["{{Host}}"],
-                            "path": ["report"],
-                            "query": [
-                                {
-                                    "key": "page",
-                                    "value": "1"
-                                },
-                                {
-                                    "key": "limit",
-                                    "value": "1"
-                                }
-                            ]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "find",
-                    "request": {
-                        "method": "GET",
-                        "header": [
-                            {
-                                "key": "access_token",
-                                "value": "{{AccessToken}}",
-                                "type": "text"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": ""
-                        },
-                        "url": {
-                            "raw": "{{Host}}/report/1",
-                            "host": ["{{Host}}"],
-                            "path": ["report_templates", "1"]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "create",
-                    "request": {
-                        "method": "POST",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "name": "Content-Type",
-                                "value": "application/x-www-form-urlencoded",
-                                "type": "text"
-                            },
-                            {
-                                "key": "access_token",
-                                "value": "{{AccessToken}}",
-                                "type": "text"
-                            }
-                        ],
-                        "body": {
-                            "mode": "urlencoded",
-                            "urlencoded": [
-                                {
-                                    "key": "report_template_id",
-                                    "value": "1",
-                                    "type": "int32"
-                                },
-                                {
-                                    "key": "report_date",
-                                    "value": "2019-05-01 22:38:28",
-                                    "type": "datetime"
-                                },
-                                {
-                                    "key": "status",
-                                    "value": "1",
-                                    "type": "int32"
-                                }
-                            ]
-                        },
-                        "url": {
-                            "raw": "{{Host}}/report",
-                            "host": ["{{Host}}"],
-                            "path": ["report"]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "update",
-                    "request": {
-                        "method": "PATCH",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "name": "Content-Type",
-                                "type": "text",
-                                "value": "application/x-www-form-urlencoded"
-                            },
-                            {
-                                "key": "access_token",
-                                "value": "{{AccessToken}}",
-                                "type": "text"
-                            }
-                        ],
-                        "body": {
-                            "mode": "urlencoded",
-                            "urlencoded": [
-                                {
-                                    "key": "report_template_id",
-                                    "value": "1",
-                                    "type": "int32"
-                                },
-                                {
-                                    "key": "report_date",
-                                    "value": "2019-05-01 22:38:28",
-                                    "type": "datetime"
-                                },
-                                {
-                                    "key": "status",
-                                    "value": "1",
-                                    "type": "int32"
-                                }
-                            ]
-                        },
-                        "url": {
-                            "raw": "{{Host}}/report/1",
-                            "host": ["{{Host}}"],
-                            "path": ["report", "1"]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "delete",
-                    "request": {
-                        "method": "DELETE",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "name": "Content-Type",
-                                "type": "text",
-                                "value": "application/x-www-form-urlencoded"
-                            },
-                            {
-                                "key": "access_token",
-                                "value": "{{AccessToken}}",
-                                "type": "text"
-                            }
-                        ],
-                        "body": {
-                            "mode": "urlencoded",
-                            "urlencoded": [
-                                {
-                                    "key": "report_template_id",
-                                    "value": "1",
-                                    "type": "int32",
-                                    "disabled": "true"
-                                },
-                                {
-                                    "key": "report_date",
-                                    "value": "2019-05-01 22:38:28",
-                                    "type": "datetime",
-                                    "disabled": "true"
-                                },
-                                {
-                                    "key": "status",
-                                    "value": "1",
-                                    "type": "int32",
-                                    "disabled": "true"
-                                }
-                            ]
-                        },
-                        "url": {
-                            "raw": "{{Host}}/report_templates/1",
-                            "host": ["{{Host}}"],
-                            "path": ["report_templates", "1"]
-                        }
-                    },
-                    "response": []
-                }
-            ]
-        },
-        {
-            "name": "report_template",
-            "item": [
-                {
-                    "name": "get",
-                    "request": {
-                        "method": "GET",
-                        "header": [
-                            {
-                                "key": "access_token",
-                                "value": "{{AccessToken}}",
-                                "type": "text"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": ""
-                        },
-                        "url": {
-                            "raw": "{{Host}}/report_templates?page=1&limit=1",
-                            "host": ["{{Host}}"],
-                            "path": ["report_templates"],
-                            "query": [
-                                {
-                                    "key": "page",
-                                    "value": "1"
-                                },
-                                {
-                                    "key": "limit",
-                                    "value": "1"
-                                }
-                            ]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "find",
-                    "request": {
-                        "method": "GET",
-                        "header": [
-                            {
-                                "key": "access_token",
-                                "value": "{{AccessToken}}",
-                                "type": "text"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": ""
-                        },
-                        "url": {
-                            "raw": "{{Host}}/report_templates/1",
-                            "host": ["{{Host}}"],
-                            "path": ["report_templates", "1"]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "create",
-                    "request": {
-                        "method": "POST",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "name": "Content-Type",
-                                "value": "application/x-www-form-urlencoded",
-                                "type": "text"
-                            },
-                            {
-                                "key": "access_token",
-                                "value": "{{AccessToken}}",
-                                "type": "text"
-                            }
-                        ],
-                        "body": {
-                            "mode": "urlencoded",
-                            "urlencoded": [
-                                {
-                                    "key": "name",
-                                    "value": "andy",
-                                    "type": "text"
-                                },
-                                {
-                                    "key": "label",
-                                    "value": "and",
-                                    "type": "text"
-                                }
-                            ]
-                        },
-                        "url": {
-                            "raw": "{{Host}}/report_templates",
-                            "host": ["{{Host}}"],
-                            "path": ["report_templates"]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "update",
-                    "request": {
-                        "method": "PATCH",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "name": "Content-Type",
-                                "type": "text",
-                                "value": "application/x-www-form-urlencoded"
-                            },
-                            {
-                                "key": "access_token",
-                                "value": "{{AccessToken}}",
-                                "type": "text"
-                            }
-                        ],
-                        "body": {
-                            "mode": "urlencoded",
-                            "urlencoded": [
-                                {
-                                    "key": "name",
-                                    "value": "budi",
-                                    "type": "text"
-                                },
-                                {
-                                    "key": "label",
-                                    "value": "and",
-                                    "type": "text"
-                                }
-                            ]
-                        },
-                        "url": {
-                            "raw": "{{Host}}/report_templates/1",
-                            "host": ["{{Host}}"],
-                            "path": ["report_templates", "1"]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "delete",
-                    "request": {
-                        "method": "DELETE",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "name": "Content-Type",
-                                "type": "text",
-                                "value": "application/x-www-form-urlencoded"
-                            },
-                            {
-                                "key": "access_token",
-                                "value": "{{AccessToken}}",
-                                "type": "text"
-                            }
-                        ],
-                        "body": {
-                            "mode": "urlencoded",
-                            "urlencoded": [
-                                {
-                                    "key": "name",
-                                    "value": "budi",
-                                    "type": "text",
-                                    "disabled": true
-                                },
-                                {
-                                    "key": "label",
-                                    "value": "and",
-                                    "type": "text",
-                                    "disabled": true
-                                }
-                            ]
-                        },
-                        "url": {
-                            "raw": "{{Host}}/report_templates/1",
-                            "host": ["{{Host}}"],
-                            "path": ["report_templates", "1"]
-                        }
-                    },
-                    "response": []
-                }
-            ]
-        },
-        {
-            "name": "indicator",
-            "item": [
-                {
-                    "name": "get",
-                    "request": {
-                        "method": "GET",
-                        "header": [
-                            {
-                                "key": "access_token",
-                                "value": "{{AccessToken}}",
-                                "type": "text"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": ""
-                        },
-                        "url": {
-                            "raw": "{{Host}}/indicators?page=1&limit=5",
-                            "host": ["{{Host}}"],
-                            "path": ["indicators"],
-                            "query": [
-                                {
-                                    "key": "page",
-                                    "value": "1"
-                                },
-                                {
-                                    "key": "limit",
-                                    "value": "5"
-                                }
-                            ]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "find",
-                    "request": {
-                        "method": "GET",
-                        "header": [
-                            {
-                                "key": "access_token",
-                                "value": "{{AccessToken}}",
-                                "type": "text"
-                            }
-                        ],
-                        "body": {
-                            "mode": "raw",
-                            "raw": ""
-                        },
-                        "url": {
-                            "raw": "{{Host}}/indicators/1",
-                            "host": ["{{Host}}"],
-                            "path": ["indicators", "1"]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "create",
-                    "request": {
-                        "method": "POST",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "name": "Content-Type",
-                                "value": "application/x-www-form-urlencoded",
-                                "type": "text"
-                            },
-                            {
-                                "key": "access_token",
-                                "value": "{{AccessToken}}",
-                                "type": "text"
-                            }
-                        ],
-                        "body": {
-                            "mode": "urlencoded",
-                            "urlencoded": [
-                                {
-                                    "key": "name",
-                                    "value": "andy",
-                                    "type": "text"
-                                },
-                                {
-                                    "key": "label",
-                                    "value": "and",
-                                    "type": "text"
-                                },
-                                {
-                                    "key": "unit_label",
-                                    "value": "int32",
-                                    "type": "text"
-                                }
-                            ]
-                        },
-                        "url": {
-                            "raw": "{{Host}}/indicators",
-                            "host": ["{{Host}}"],
-                            "path": ["indicators"]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "update",
-                    "request": {
-                        "method": "PATCH",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "name": "Content-Type",
-                                "type": "text",
-                                "value": "application/x-www-form-urlencoded"
-                            },
-                            {
-                                "key": "access_token",
-                                "value": "{{AccessToken}}",
-                                "type": "text"
-                            }
-                        ],
-                        "body": {
-                            "mode": "urlencoded",
-                            "urlencoded": [
-                                {
-                                    "key": "name",
-                                    "value": "budi",
-                                    "type": "text"
-                                },
-                                {
-                                    "key": "label",
-                                    "value": "and",
-                                    "type": "text"
-                                },
-                                {
-                                    "key": "unit_label",
-                                    "value": "int64",
-                                    "type": "text"
-                                }
-                            ]
-                        },
-                        "url": {
-                            "raw": "{{Host}}/indicators/1",
-                            "host": ["{{Host}}"],
-                            "path": ["indicators", "1"]
-                        }
-                    },
-                    "response": []
-                },
-                {
-                    "name": "delete",
-                    "request": {
-                        "method": "DELETE",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "name": "Content-Type",
-                                "type": "text",
-                                "value": "application/x-www-form-urlencoded"
-                            },
-                            {
-                                "key": "access_token",
-                                "value": "{{AccessToken}}",
-                                "type": "text"
-                            }
-                        ],
-                        "body": {
-                            "mode": "urlencoded",
-                            "urlencoded": [
-                                {
-                                    "key": "name",
-                                    "value": "budi",
-                                    "type": "text",
-                                    "disabled": true
-                                },
-                                {
-                                    "key": "label",
-                                    "value": "and",
-                                    "type": "text",
-                                    "disabled": true
-                                }
-                            ]
-                        },
-                        "url": {
-                            "raw": "{{Host}}/indicators/1",
-                            "host": ["{{Host}}"],
-                            "path": ["indicators", "1"]
-                        }
-                    },
-                    "response": []
-                }
-            ]
-        }
-    ]
+	"info": {
+		"_postman_id": "b791ca4a-4498-4ec5-a18c-934137c9156a",
+		"name": "WD-gamantha",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "misc",
+			"item": [
+				{
+					"name": "checkToken",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{AccessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{Host}}/checkToken",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"checkToken"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "report_template",
+			"item": [
+				{
+					"name": "get",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{AccessToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{Host}}/report_templates?page=1&limit=5",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"report_templates"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "access_token",
+									"value": "{{AccessToken}}",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{AccessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{Host}}/report_templates/3",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"report_templates",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{AccessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "andy",
+									"type": "text"
+								},
+								{
+									"key": "label",
+									"value": "and",
+									"type": "text"
+								},
+								{
+									"key": "report_type",
+									"value": "cc",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{Host}}/report_templates",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"report_templates"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{AccessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "budi",
+									"type": "text"
+								},
+								{
+									"key": "label",
+									"value": "and",
+									"type": "text"
+								},
+								{
+									"key": "report_type",
+									"value": "ss",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{Host}}/report_templates/6",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"report_templates",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "access_token",
+								"value": "{{AccessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "budi",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "label",
+									"value": "and",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{Host}}/report_templates/1",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"report_templates",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getIndicators",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{AccessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{Host}}/report_templates/1/indicators",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"report_templates",
+								"1",
+								"indicators"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "indicator",
+			"item": [
+				{
+					"name": "get",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{AccessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{Host}}/indicators?page=1&limit=100",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"indicators"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "100"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "access_token",
+								"value": "{{AccessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{Host}}/indicators/1",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"indicators",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{AccessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "lb_name",
+									"type": "text"
+								},
+								{
+									"key": "label",
+									"value": "name",
+									"type": "text"
+								},
+								{
+									"key": "unit_label",
+									"value": "string",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{Host}}/indicators",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"indicators"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "access_token",
+								"value": "{{AccessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "budi",
+									"type": "text"
+								},
+								{
+									"key": "label",
+									"value": "and",
+									"type": "text"
+								},
+								{
+									"key": "unit_label",
+									"value": "int64",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{Host}}/indicators/1",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"indicators",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							},
+							{
+								"key": "access_token",
+								"value": "{{AccessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "budi",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "label",
+									"value": "and",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{Host}}/indicators/1",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"indicators",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "report",
+			"item": [
+				{
+					"name": "submitReportValues",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{AccessToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"report_id\": 1,\n\t\"report_values\": [\n\t\t{\n\t\t\t\"indicator_id\": 1,\n\t\t\t\"indicator_value\": \"Andy\"\n\t\t},\n\t\t{\n\t\t\t\"indicator_id\": 2,\n\t\t\t\"indicator_value\": \"22\"\n\t\t}\n\t]\n}\t"
+						},
+						"url": {
+							"raw": "{{Host}}/indicator_values",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"indicator_values"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{AccessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{Host}}/reports",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"reports"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{AccessToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"report_template_id\": 1,\n\t\"report_date\": \"2019-05-30 11:19:47\",\n\t\"name\": \"random\"\n}"
+						},
+						"url": {
+							"raw": "{{Host}}/reports",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"reports"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{AccessToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"report_template_id\": 1,\n\t\"report_date\": \"2019-05-30 11:19:47\",\n\t\"status\": 1,\n\t\"name\": \"cocc\"\n}"
+						},
+						"url": {
+							"raw": "{{Host}}/reports/3",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"reports",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{AccessToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{Host}}/reports/6",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"reports",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "exportCSV",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{AccessToken}}"
+							},
+							{
+								"key": "Accept",
+								"value": "text/csv",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{Host}}/reports/2/export/csv",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"reports",
+								"2",
+								"export",
+								"csv"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "exportPDF",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{AccessToken}}"
+							},
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "text/csv"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{Host}}/reports/2/export",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"reports",
+								"2",
+								"export"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "charts",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{AccessToken}}",
+								"description": "access token header",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"indicator_ids\": [1,2,4],\n\t\"from\": \"2019-01-01\",\n\t\"to\": \"2019-10-01\",\n\t\"interval\": \"month\"\n}"
+						},
+						"url": {
+							"raw": "{{Host}}/charts",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"charts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"description": "access token header",
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{AccessToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{Host}}/charts?page=1&limit=10&sort=id",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"charts"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "sort",
+									"value": "id"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"description": "access token header",
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{AccessToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{Host}}/charts?page=1&limit=10&sort=id",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"charts"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "sort",
+									"value": "id"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
 }
