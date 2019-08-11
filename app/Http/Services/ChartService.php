@@ -74,4 +74,20 @@ class ChartService extends BaseService {
       'data' => $result,
     ];
   }
+
+  function find($id) {
+    $chart = $this->model::with('indicatorValue.indicator')
+        ->where('id', $id)
+        ->first();
+    $chartIndicatorsCollection = collect($chart->indicatorValue);
+    $chartIndicators = $chartIndicatorsCollection->whereBetween('created_at', [$chart->from, $chart->to]);
+    $groupedIndicators = $chartIndicators->sortBy('created_at')->groupBy(
+        function($d) {
+            return Carbon::parse($d->created_at)->format('m');
+        }
+    );
+    $chart->indicators = $groupedIndicators;
+    unset($chart->indicatorValue);
+    return $chart;
+  }
 }

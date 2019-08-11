@@ -55,4 +55,18 @@ class ChartController extends Controller
             ->setSuccess(true)->build();
         return $response;
     }
+
+    public function find($id) {
+        $responseBuilder = new ResponseBuilder();
+        $chart = $this->service->find($id);
+        if ($chart) {
+            $response = $responseBuilder->setData($chart)->setMessage('fetched chart')->setSuccess(true)->build();
+            return $response;
+        } else {
+            $response = $responseBuilder->setData($chart)
+                ->setMessage('chart with id: ' . $id . ' not found')
+                ->setSuccess(false)->setStatus(404)->build();
+            return $response;
+        }
+    }
 }
