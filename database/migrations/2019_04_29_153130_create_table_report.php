@@ -15,11 +15,16 @@ class CreateTableReport extends Migration
     {
         Schema::create('report', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('report_template_id');
+            $table->string('name');
+            $table->integer('report_template_id')->unsigned();
             $table->dateTime('report_date');
-            $table->string('author_id');
-            $table->integer('status');
+            $table->string('author_id')->index();
+            $table->integer('status')->index();
             $table->timestamps();
+        });
+
+        Schema::table('report', function (Blueprint $table) {
+            $table->foreign('report_template_id')->references('id')->on('report_template');
         });
     }
 

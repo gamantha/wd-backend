@@ -17,8 +17,11 @@ class CreateTableIndicatorCategory extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('label');
-            $table->integer('parent_category_id')->nullable();
+            $table->integer('parent_category_id')->nullable()->unsigned();
             $table->timestamps();
+        });
+        Schema::table('indicator_category', function (Blueprint $table) {
+            $table->foreign('parent_category_id')->references('id')->on('indicator_category');
         });
     }
 

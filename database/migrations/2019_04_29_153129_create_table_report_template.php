@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableIndicatorValue extends Migration
+class CreateTableReportTemplate extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateTableIndicatorValue extends Migration
      */
     public function up()
     {
-        Schema::create('indicator_value', function (Blueprint $table) {
+        Schema::create('report_template', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('indicator_id')->index();
-            $table->string('value');
-            $table->integer('report_id')->index();
+            $table->string('name');
+            $table->string('label');
+            $table->string('author_id')->index();
+            $table->string('report_type')->index();
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class CreateTableIndicatorValue extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('indicator_value');
+        Schema::dropIfExists('report_template');
     }
 }

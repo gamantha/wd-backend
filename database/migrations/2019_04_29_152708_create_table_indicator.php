@@ -18,8 +18,14 @@ class CreateTableIndicator extends Migration
             $table->string('name');
             $table->string('label');
             $table->string('unit_label');
-            // $table->integer('indicator_category_id'); :andy-shi88 omit this for now
+            $table->integer('indicator_parent_id')->nullable()->unsigned();
+            $table->boolean('is_parent')->index();
+            $table->string('tag')->nullable();
             $table->timestamps();
+        });
+
+        Schema::table('indicator', function (Blueprint $table) {
+            $table->foreign('indicator_parent_id')->references('id')->on('indicator');
         });
     }
 
