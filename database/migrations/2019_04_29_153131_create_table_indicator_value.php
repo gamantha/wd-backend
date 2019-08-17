@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableMorbidity extends Migration
+class CreateTableIndicatorValue extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,15 @@ class CreateTableMorbidity extends Migration
      */
     public function up()
     {
-        Schema::create('morbidity', function (Blueprint $table) {
+        Schema::create('indicator_value', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('cause');
-            $table->string('gender')->index();
-            $table->string('age');
+            $table->integer('indicator_id')->unsigned();
+            $table->string('value');
             $table->integer('report_id')->unsigned();
             $table->timestamps();
         });
-
-        Schema::table('morbidity', function (Blueprint $table) {
+        Schema::table('indicator_value', function (Blueprint $table) {
+            $table->foreign('indicator_id')->references('id')->on('indicator');
             $table->foreign('report_id')->references('id')->on('report');
         });
     }
@@ -34,6 +33,6 @@ class CreateTableMorbidity extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('morbidity');
+        Schema::dropIfExists('indicator_value');
     }
 }
