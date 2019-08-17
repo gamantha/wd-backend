@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Log;
 use App\Http\Models\Indicator;
 use App\Http\Services\IndicatorService;
 use Illuminate\Http\Request;
@@ -78,21 +79,20 @@ class ReportTemplateController extends Controller
           'name' => 'required',
           'label' => 'required',
           'report_type' => 'required',
+          'indicator_ids' => 'required|array',
+          'category_ids' => 'required|array',
         ]);
-        $data = new ReportTemplate();
-        $data->name = $request->input('name');
-        $data->label = $request->input('label');
-        $data->report_type = $request->input('report_type');
-        $data->author_id = $request->auth->username;
-        $reportTemplate = $this->service->save($data);
+        $reportTemplate = $this->service->saveReportTemplate($request);
         $response = $responseBuilder->setData($reportTemplate)->setMessage('report template created successfully')
           ->setSuccess(true)->build();
         return $response;
       } catch (ValidationException $e) {
-        $response = $responseBuilder->setMessage("invalid payload provided")
+        Log::warning($e);
+        $response = $responseBuilder->setData($e->response->original)->setMessage("invalid payload provided")
           ->setSuccess(false)->setStatus(422)->build();
         return $response;
       } catch (\Exception $e) {
+        Log::warning($e);
         $response = $responseBuilder->setMessage("unknown error occured: contact your administrator")
           ->setSuccess(false)->setStatus(500)->build();
         return $response;
@@ -106,28 +106,29 @@ class ReportTemplateController extends Controller
           'name' => 'required',
           'label' => 'required',
           'report_type' => 'required',
+          'indicator_ids' => 'required|array'
         ]);
         $data = $this->service->find($id);
         if ($data) {
-          $data->name = $request->input('name');
-          $data->label = $request->input('label');
-          $data->report_type = $request->input('report_type');
-          $data->author_id = $request->auth->username;
-          $reportTemplate = $this->service->save($data);
+          $reportTemplate = $this->service->updateReportTemplate($request, $data, $id);
           $response = $responseBuilder->setData($reportTemplate)->setMessage('report template updated successfully')
             ->setSuccess(true)->build();
           return $response;
         } else {
-          $response = $responseBuilder->setData($reportTemplate)
-            ->setMessage('report template with id' . $id . ' not found')
+          $response = $responseBuilder->setData(null)
+            ->setMessage('report template with id ' . $id . ' not found')
             ->setSuccess(false)->setStatus(404)->build();
           return $response;
         }
       } catch (ValidationException $e) {
-        $response = $responseBuilder->setMessage("invalid payload provided")
+        Log::warning($e);
+        $response = $responseBuilder
+          ->setData($e->response->original)->setMessage("invalid payload provided")
           ->setSuccess(false)->setStatus(422)->build();
         return $response;
       } catch (\Exception $e) {
+        dd($e);
+        Log::warning($e);
         $response = $responseBuilder->setMessage("unknown error occured: contact your administrator")
           ->setSuccess(false)->setStatus(500)->build();
         return $response;
@@ -149,6 +150,7 @@ class ReportTemplateController extends Controller
           return $response;
         }
       } catch (\Exception $e) {
+        Log::warning($e);
         $response = $responseBuilder->setMessage("unknown error occured: contact your administrator")
           ->setSuccess(false)->setStatus(500)->build();
         return $response;
