@@ -415,17 +415,26 @@ class LB1SeedProduction extends Seeder
                 'mastitis' => 'Mastitis',
             ]
         ];
-        foreach ($categories as $category) {
-            $c = [
-                'id' => 1,
-                'name' => 'penyakit_infeksi_pada_usus',
-                'label' => 'PENYAKIT INFEKSI PADA USUS (Intestinal infection disease)',
-                'is_parent' => true,
-                'indicator_parent_id' => null,
-                'unit_label' => 'orang',
-                'created_at' => date("Y-m-d H:i:s"),
-                'updated_at' => date("Y-m-d H:i:s"),
-            ];
+        $childArranged = [];
+        foreach ($childs as $key => $value) {
+            // parent 
+            $parent_id = $key + 1;
+            foreach ($value as $sub_key => $sub_value) {
+                foreach ($categories as $category) {
+                    array_push($childArranged,[
+                        'name' => $sub_key . '_' . $category,
+                        'label' => $sub_value,
+                        'is_parent' => false,
+                        'indicator_parent_id' => $parent_id,
+                        'unit_label' => 'orang',
+                        'created_at' => date("Y-m-d H:i:s"),
+                        'updated_at' => date("Y-m-d H:i:s"),
+                    ]);
+                }
+            }
         }
+        DB::table('indicator')->insert(
+            $childArranged,
+        );
     }
 }
