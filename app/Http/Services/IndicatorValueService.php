@@ -2,6 +2,7 @@
 
 namespace App\Http\Services;
 
+use DB;
 use App\Http\Models\IndicatorValue;
 use App\Http\Models\Report;
 use App\Http\Services\ReportService;
@@ -17,6 +18,31 @@ class IndicatorValueService extends BaseService {
     function __construct($model) {
         parent::__construct($model);
         $this->reportService = new ReportService(new Report);
+    }
+
+    /**
+     * updateValues take in indicators (array of [indicatorID => value])
+     * and update every indicator passed in
+     * @return none
+     */
+    function updateValues($indicators) {
+        DB::beginTransaction();
+        try {
+            foreach ($indicators as $indicator) {
+                $ind = IndicatorValue::where('id', $indicator['id'])->first();
+                if (!$ind) {
+                    DB::rollBack();
+                    throw new \Exception('one of the indicator not found: ' . ' id: ' . $indicator['id']);
+                }
+                $ind->value = $indicator['value'];
+                $ind->save();
+            }
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            throw $th;
+        }
+
     }
 
     /**

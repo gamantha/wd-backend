@@ -31,6 +31,25 @@ class IndicatorValueController extends Controller
         parent::__construct(new IndicatorValueService(new IndicatorValue()));
     }
 
+    public function update(Request $request) {
+        $responseBuilder = new ResponseBuilder();
+        try {
+            $this->validate($request, [
+                'indicators' => 'required|array'
+            ]);
+            $this->service->updateValues($request->input('indicators'));
+            return $responseBuilder->setMessage("indicator values updated")->setSuccess(true)->setStatus(200)->build();
+        } catch (ValidationException $e) {
+            $response = $responseBuilder->setMessage("invalid payload provided")
+                ->setSuccess(false)->setStatus(422)->build();
+            return $response;
+        } catch (\Exception $e) {
+            $response = $responseBuilder->setMessage("unknown error occured: contact your administrator")
+                ->setSuccess(false)->setStatus(500)->build();
+            return $response;
+        }
+    }
+
     public function create(Request $request)
     {
         $responseBuilder = new ResponseBuilder();
