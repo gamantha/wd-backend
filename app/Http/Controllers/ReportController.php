@@ -31,13 +31,13 @@ class ReportController extends Controller
                 'report_date' => 'required',
                 'name' => 'required',
             ]);
-            $data = new Report();
-            $data->report_template_id = $request->input('report_template_id');
-            $data->report_date = $request->input('report_date');
-            $data->name = $request->input('name');
-            $data->status = 1;
-            $data->author_id = $request->auth->username; // TODO: get auth from middleware
-            $report = $this->service->save($data);
+            $report = $this->service->saveReport(
+                $request->input('report_template_id'),
+                $request->input('name'),
+                $request->input('report_date'),
+                $request->auth->username,
+            );
+            // initiate every indicator value
             $response = $responseBuilder->setData($report)->setMessage('report created successfully')
                 ->setSuccess(true)->build();
             return $response;

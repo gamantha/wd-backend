@@ -2,8 +2,11 @@
 
 namespace App\Http\Services;
 
+use DB;
 use App\Http\Models\IndicatorCategory;
 use App\Http\Models\Indicator;
+use App\Http\Models\ReportTemplate;
+use App\Http\Models\Report;
 use Barryvdh\DomPDF\Facade as PDF;
 
 /**
@@ -19,6 +22,46 @@ class ReportService extends BaseService
         parent::__construct($model);
         $this->categoryModel = new IndicatorCategory();
         $this->indicatorModel = new Indicator();
+    }
+
+    /**
+     * save
+     * save report record and initiate all related indicator value
+     */
+    function saveReport($reportTemplateId, $reportName, $reportDate, $author) {
+        DB::beginTransaction();
+        try {
+            $reportTemplate =  ReportTemplate::where(['id' => $reportTemplateId])->first();
+            if (!$reportTemplate) {
+                throw "report template not found";
+            }
+            $data = new Report();
+            $data->report_template_id = $reportTemplateId;
+            $data->report_date = $reportDate;
+            $data->name = $reportName;
+            $data->status = 1;
+            $data->author_id = $author;
+            $data->save();
+            // initiate every indicator value
+            $indicators = $reportTemplate->indicators()->get();
+            $indicatorToSave = [];
+            foreach ($indicators as $index => $indicator){
+                array_push($indicatorToSave, [
+                    'indicator_id' => $indicator->id,
+                    'value' => '',
+                    'report_id' => $data->id,
+                    'created_at' => date("Y-m-d H:i:s"),
+                    'updated_at' => date("Y-m-d H:i:s"),
+                ]);
+            }
+            DB::table('indicator_value')->insert($indicatorToSave);
+            DB::commit();
+            return $data;
+        } catch (\Throwable $th) {
+            dd($th);
+            DB::rollBack();
+            throw $th;
+        }
     }
 
     /**
