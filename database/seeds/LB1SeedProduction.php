@@ -14,17 +14,30 @@ class LB1SeedProduction extends Seeder
         // f_ indicate female
         // m_ indicate male
         $categories = [
-            'f_0_7d', 'm_0_7d',
-            'f_8_28d', 'm_8_28d',
-            'f_1_12m', 'm_1_12m',
-            'f_1_4y', 'm_1_4y',
-            'f_10_14y', 'm_10_14y',
-            'f_15_19y', 'm_10_19y',
-            'f_20_44y', 'm_20_44y',
-            'f_45_54y', 'm_45_54y',
-            'f_55_59y', 'm_55_59y',
-            'f_60_69y', 'm_60_69y',
-            'f_70y', 'm_70y',
+            'f_0_7d' => 'wanita 0 - 7 hari',
+            'm_0_7d' => 'pria 0 - 7 hari',
+            'f_8_28d' => 'wanita 8 - 28 hari',
+            'm_8_28d' => 'pria 8 - 28 hari',
+            'f_1_12m' => 'wanita 1 - 12 bulan',
+            'm_1_12m' => 'pria 1 - 12 bulan',
+            'f_1_4y' => 'wanita 1 - 4 tahun',
+            'm_1_4y' => 'pria 1 - 4 tahun',
+            'm_5_9y' => 'wanita 5 - 9 tahun',
+            'm_5_9y' => 'pria 5 - 9 tahun',
+            'f_10_14y' => 'wanita 10 - 14 tahun',
+            'm_10_14y' => 'pria 10 - 14 tahun',
+            'f_15_19y' => 'wanita 15 - 19 tahun',
+            'm_15_19y' => 'pria 15 - 19 tahun',
+            'f_20_44y' => 'wanita 20 - 44 tahun',
+            'm_20_44y' => 'pria 20 - 44 tahun',
+            'f_45_54y' => 'wanita 45 - 54 tahun',
+            'm_45_54y' => 'pria 45 - 54 tahun',
+            'f_55_59y' => 'wanita 55 - 59 tahun',
+            'm_55_59y' => 'pria 55 - 59 tahun',
+            'f_60_69y' => 'wanita 60 - 69 tahun',
+            'm_60_69y' => 'pria 60 - 69 tahun',
+            'f_70y' => 'wanita diatas 70 tahun',
+            'm_70y' => 'pria diatas 70 tahun',
         ];
         // fill parent first
         DB::table('indicator')->insert(
@@ -420,10 +433,10 @@ class LB1SeedProduction extends Seeder
             // parent 
             $parent_id = $key + 1;
             foreach ($value as $sub_key => $sub_value) {
-                foreach ($categories as $category) {
+                foreach ($categories as $category => $category_label) {
                     array_push($childArranged,[
                         'name' => $sub_key . '_' . $category,
-                        'label' => $sub_value,
+                        'label' => $sub_value . ' ' . $category_label,
                         'is_parent' => false,
                         'indicator_parent_id' => $parent_id,
                         'unit_label' => 'orang',
