@@ -20,6 +20,10 @@ class IndicatorValueService extends BaseService {
         $this->reportService = new ReportService(new Report);
     }
 
+    function getByReportId($reportId) {
+        return IndicatorValue::where('report_id', $reportId)->get();
+    }
+
     /**
      * updateValues take in indicators (array of [indicatorID => value])
      * and update every indicator passed in

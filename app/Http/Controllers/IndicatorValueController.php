@@ -31,6 +31,20 @@ class IndicatorValueController extends Controller
         parent::__construct(new IndicatorValueService(new IndicatorValue()));
     }
 
+    // return all report indicator values (they are a lot : will take sometime)
+    public function findByReportId($reportId) {
+        $responseBuilder = new ResponseBuilder();
+        try {
+            $indicatorValues = $this->service->getByReportId($reportId);
+            return $responseBuilder->setMessage("indicator values fetched")
+                ->setData($indicatorValues)->setSuccess(true)->setStatus(200)->build();
+        } catch (\Exception $e) {
+            $response = $responseBuilder->setMessage("unknown error occured: contact your administrator")
+                ->setSuccess(false)->setStatus(500)->build();
+            return $response;
+        }
+    }
+
     public function update(Request $request) {
         $responseBuilder = new ResponseBuilder();
         try {
