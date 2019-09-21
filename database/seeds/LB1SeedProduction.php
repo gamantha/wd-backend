@@ -447,7 +447,7 @@ class LB1SeedProduction extends Seeder
             }
         }
         DB::table('indicator')->insert(
-            $childArranged,
+            $childArranged
         );
     }
 }

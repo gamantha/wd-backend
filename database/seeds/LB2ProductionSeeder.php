@@ -1,0 +1,330 @@
+<?php
+
+use Illuminate\Database\Seeder;
+
+class LB2ProductionSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        $categories_LB2 = [
+            'stok_awal' => 'Stok Awal',
+            'penerimaan' => 'Penerimaan',
+            'persediaan' => 'Persediaan',
+            'pemakaian' => 'Pemakaian',
+            'ed' => 'ED',
+            'sisa_stok' => 'Sisa Stok',
+            'ket' => 'Ket',
+            'permintaan' => 'Permintaan',
+            'pemberian_inpres' => 'Pemberian INPRES',
+            'pemberian_askes' => 'Pemberian ASKES',
+            'pemberian_apbd' => 'Pemberian APBD',
+            'pemberian_lain' => 'Pemberian Lain',
+            'jumlah' => 'Jumlah',
+        ];
+
+        // fill parent first
+        
+        $indicators = [
+            [
+                'id' => 3001,
+                'name' => 'acetylcysteine_200_mg',
+                'label' => 'Acetylcysteine 200 mg',
+                'is_parent' => false,
+                'indicator_parent_id' => null,
+                'unit_label' => 'Kapsul',
+                'created_at' => date("Y-m-d H:i:s"),
+                'updated_at' => date("Y-m-d H:i:s"),
+            ],
+            [
+                'id' => 3002,
+                'name' => 'acyclovir_salep_10_gr',
+                'label' => 'Acyclovir Salep 10 gr',
+                'is_parent' => false,
+                'indicator_parent_id' => null,
+                'unit_label' => 'Tube',
+                'created_at' => date("Y-m-d H:i:s"),
+                'updated_at' => date("Y-m-d H:i:s"),
+            ],
+            [
+                'id' => 3003,
+                'name' => 'acyclovir_tab_200_mg',
+                'label' => 'Acyclovir tab 200 mg',
+                'is_parent' => false,
+                'indicator_parent_id' => null,
+                'unit_label' => 'Tablet',
+                'created_at' => date("Y-m-d H:i:s"),
+                'updated_at' => date("Y-m-d H:i:s"),
+            ],
+            [
+                'id' => 3004,
+                'name' => 'acyclovir_tab_400_mg',
+                'label' => 'Acyclovir tab 400 mg',
+                'is_parent' => false,
+                'indicator_parent_id' => null,
+                'unit_label' => 'Tablet',
+                'created_at' => date("Y-m-d H:i:s"),
+                'updated_at' => date("Y-m-d H:i:s"),
+            ],
+            [
+                'id' => 3005,
+                'name' => 'albendazole_200_mg_5_ml',
+                'label' => 'Albendazole 200 mg / 5 ml',
+                'is_parent' => false,
+                'indicator_parent_id' => null,
+                'unit_label' => 'Botol 10 ml',
+                'created_at' => date("Y-m-d H:i:s"),
+                'updated_at' => date("Y-m-d H:i:s"),
+            ],
+            [
+                'id' => 3006,
+                'name' => 'albendazole_tab_400_mg',
+                'label' => 'Albendazole tab 400 mg',
+                'is_parent' => false,
+                'indicator_parent_id' => null,
+                'unit_label' => 'Tablet',
+                'created_at' => date("Y-m-d H:i:s"),
+                'updated_at' => date("Y-m-d H:i:s"),
+            ],
+            [
+                'id' => 3007,
+                'name' => 'albiotin_150_mg',
+                'label' => 'Albiotin 150 mg',
+                'is_parent' => false,
+                'indicator_parent_id' => null,
+                'unit_label' => 'Kapsul',
+                'created_at' => date("Y-m-d H:i:s"),
+                'updated_at' => date("Y-m-d H:i:s"),
+            ],
+            [
+                'id' => 3008,
+                'name' => 'allopurinol_tab_100_mg',
+                'label' => 'Allopurinol tab 100 mg',
+                'is_parent' => false,
+                'indicator_parent_id' => null,
+                'unit_label' => 'Tablet',
+                'created_at' => date("Y-m-d H:i:s"),
+                'updated_at' => date("Y-m-d H:i:s"),
+            ],
+            [
+                'id' => 3009,
+                'name' => 'ambroxol_syr_15_mg_ml',
+                'label' => 'Ambroxol Syr 15mg/ml',
+                'is_parent' => false,
+                'indicator_parent_id' => null,
+                'unit_label' => 'Botol 60 ml',
+                'created_at' => date("Y-m-d H:i:s"),
+                'updated_at' => date("Y-m-d H:i:s"),
+            ],
+            [
+                'id' => 3010,
+                'name' => 'ambroxol_tab_30_mg',
+                'label' => 'Ambroxol tab 30 mg',
+                'is_parent' => false,
+                'indicator_parent_id' => null,
+                'unit_label' => 'Tablet',
+                'created_at' => date("Y-m-d H:i:s"),
+                'updated_at' => date("Y-m-d H:i:s"),
+            ],
+            [
+                'id' => 3011,
+                'name' => 'aminofilin_inj_24_mg_ml_1_ml',
+                'label' => 'Aminofilin inj 24 mg / ml - 1 ml',
+                'is_parent' => false,
+                'indicator_parent_id' => null,
+                'unit_label' => 'Ampul',
+                'created_at' => date("Y-m-d H:i:s"),
+                'updated_at' => date("Y-m-d H:i:s"),
+            ],
+            [
+                'id' => 3012,
+                'name' => 'aminofilin_tab_150_mg',
+                'label' => 'Aminofilin tab 150 mg',
+                'is_parent' => false,
+                'indicator_parent_id' => null,
+                'unit_label' => 'Tablet',
+                'created_at' => date("Y-m-d H:i:s"),
+                'updated_at' => date("Y-m-d H:i:s"),
+            ],
+            [
+                'id' => 3013,
+                'name' => 'amitripthyline_tab_25_gr',
+                'label' => 'Amitripthyline tab 25 gr',
+                'is_parent' => false,
+                'indicator_parent_id' => null,
+                'unit_label' => 'Tablet',
+                'created_at' => date("Y-m-d H:i:s"),
+                'updated_at' => date("Y-m-d H:i:s"),
+            ],
+            [
+                'id' => 3014,
+                'name' => 'amlodipin_tab_5_gr',
+                'label' => 'Amlodipin tab 5 gr',
+                'is_parent' => false,
+                'indicator_parent_id' => null,
+                'unit_label' => 'Tablet',
+                'created_at' => date("Y-m-d H:i:s"),
+                'updated_at' => date("Y-m-d H:i:s"),
+            ],
+            [
+                'id' => 3015,
+                'name' => 'amoksisilin_kaplet_500_mg',
+                'label' => 'Amoksisilin kaplet 500 mg',
+                'is_parent' => false,
+                'indicator_parent_id' => null,
+                'unit_label' => 'Tablet',
+                'created_at' => date("Y-m-d H:i:s"),
+                'updated_at' => date("Y-m-d H:i:s"),
+            ],
+            [
+                'id' => 3016,
+                'name' => 'amoksisilin_kaplet_250_mg',
+                'label' => 'Amoksisilin kaplet 250 mg',
+                'is_parent' => false,
+                'indicator_parent_id' => null,
+                'unit_label' => 'Tablet',
+                'created_at' => date("Y-m-d H:i:s"),
+                'updated_at' => date("Y-m-d H:i:s"),
+            ],
+            [
+                'id' => 3017,
+                'name' => 'amoksisilin_syrup_kering_125_mg_5_ml',
+                'label' => 'Amoksisilin syrup kering 125 mg / 5 ml',
+                'is_parent' => false,
+                'indicator_parent_id' => null,
+                'unit_label' => 'Botol 60 ml',
+                'created_at' => date("Y-m-d H:i:s"),
+                'updated_at' => date("Y-m-d H:i:s"),
+            ],
+            [
+                'id' => 3018,
+                'name' => 'amoksisilin_syrup_kering_250_mg_5_ml',
+                'label' => 'Amoksisilin syrup kering 250 mg / 5 ml',
+                'is_parent' => false,
+                'indicator_parent_id' => null,
+                'unit_label' => 'Botol 60 ml',
+                'created_at' => date("Y-m-d H:i:s"),
+                'updated_at' => date("Y-m-d H:i:s"),
+            ],
+            [
+                'id' => 3019,
+                'name' => 'ampisilin_inj',
+                'label' => 'Ampisilin inj',
+                'is_parent' => false,
+                'indicator_parent_id' => null,
+                'unit_label' => 'Vial',
+                'created_at' => date("Y-m-d H:i:s"),
+                'updated_at' => date("Y-m-d H:i:s"),
+            ],
+            [
+                'id' => 3020,
+                'name' => 'ampisilin_syrup_kering_125_mg_ml',
+                'label' => 'Ampisilin syrup kering 125 mg / ml',
+                'is_parent' => false,
+                'indicator_parent_id' => null,
+                'unit_label' => 'Botol 60 ml',
+                'created_at' => date("Y-m-d H:i:s"),
+                'updated_at' => date("Y-m-d H:i:s"),
+            ],
+            [
+                'id' => 3021,
+                'name' => 'antalgin_metampiron_tab_500_mg',
+                'label' => 'Antalgin (Metampiron) tab 500 mg',
+                'is_parent' => false,
+                'indicator_parent_id' => null,
+                'unit_label' => 'Tablet',
+                'created_at' => date("Y-m-d H:i:s"),
+                'updated_at' => date("Y-m-d H:i:s"),
+            ],
+            [
+                'id' => 3022,
+                'name' => 'antasida_syr',
+                'label' => 'Antasida syr',
+                'is_parent' => false,
+                'indicator_parent_id' => null,
+                'unit_label' => 'Botol 60 ml',
+                'created_at' => date("Y-m-d H:i:s"),
+                'updated_at' => date("Y-m-d H:i:s"),
+            ],
+            [
+                'id' => 3023,
+                'name' => 'antasida_tab',
+                'label' => 'Antasida tab',
+                'is_parent' => false,
+                'indicator_parent_id' => null,
+                'unit_label' => 'Tablet',
+                'created_at' => date("Y-m-d H:i:s"),
+                'updated_at' => date("Y-m-d H:i:s"),
+            ],
+            [
+                'id' => 3024,
+                'name' => 'aqua_pro_inj_bebas_pirogen',
+                'label' => 'Aqua pro inj bebas pirogen',
+                'is_parent' => false,
+                'indicator_parent_id' => null,
+                'unit_label' => 'Vial',
+                'created_at' => date("Y-m-d H:i:s"),
+                'updated_at' => date("Y-m-d H:i:s"),
+            ],
+            [
+                'id' => 3025,
+                'name' => 'asam_ascobat_vit_c_tab_250_mg',
+                'label' => 'Asam ascobat (Vit. C) tab 250 mg',
+                'is_parent' => false,
+                'indicator_parent_id' => null,
+                'unit_label' => 'Tablet',
+                'created_at' => date("Y-m-d H:i:s"),
+                'updated_at' => date("Y-m-d H:i:s"),
+            ],
+            [
+                'id' => 3026,
+                'name' => 'asam_ascobat_vit_c_tab_50_mg',
+                'label' => 'Asam ascobat (Vit. C) tab 50 mg',
+                'is_parent' => false,
+                'indicator_parent_id' => null,
+                'unit_label' => 'Tablet',
+                'created_at' => date("Y-m-d H:i:s"),
+                'updated_at' => date("Y-m-d H:i:s"),
+            ],
+            [
+                'id' => 3027,
+                'name' => 'asam_mefenamat_500_mg',
+                'label' => 'Asam mefenamat 500 mg',
+                'is_parent' => false,
+                'indicator_parent_id' => null,
+                'unit_label' => 'Tablet',
+                'created_at' => date("Y-m-d H:i:s"),
+                'updated_at' => date("Y-m-d H:i:s"),
+            ],
+            [
+                'id' => 3028,
+                'name' => 'asam_traneksamat_inj',
+                'label' => 'Asam traneksamat inj',
+                'is_parent' => false,
+                'indicator_parent_id' => null,
+                'unit_label' => 'Ampul',
+                'created_at' => date("Y-m-d H:i:s"),
+                'updated_at' => date("Y-m-d H:i:s"),
+            ],
+        ];
+        $childArranged = [];
+        $index = 0;
+        foreach ($indicators as $key => $value) {
+            foreach ($categories_LB2 as $category_key => $category_label) {
+                $child = $value;
+                $child['id'] = $index + 3000;
+                $child['name'] = $value['name'] . '_' . $category_key;
+                $child['label'] = $value['label'] . ' ' . $category_label;
+                $index++;
+                array_push($childArranged, $child);
+            }
+        }
+        DB::table('indicator')->insert(
+            $childArranged
+        );
+    }
+}
