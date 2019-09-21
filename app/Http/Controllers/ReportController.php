@@ -35,7 +35,7 @@ class ReportController extends Controller
                 $request->input('report_template_id'),
                 $request->input('name'),
                 $request->input('report_date'),
-                $request->auth->username,
+                $request->auth->username
             );
             // initiate every indicator value
             $response = $responseBuilder->setData($report)->setMessage('report created successfully')
