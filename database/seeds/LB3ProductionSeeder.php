@@ -12,7 +12,7 @@ class LB3ProductionSeeder extends Seeder
     public function run()
     {
         //
-        $parent = [
+        $indicators = [
             [ // main parent
                 'id' => 3500,
                 'name' => 'kesehatan_ibu_dan_anak',
@@ -584,7 +584,7 @@ class LB3ProductionSeeder extends Seeder
                 'updated_at' => date("Y-m-d H:i:s"),
             ],
             [ // 3505 child
-                'id' => 3556,
+                'id' => 3700,
                 'name' => 'jumlah_wus_baru_yang_diukur_lila_lingkar_lengan_atas_bulan_ini',
                 'label' => 'Jumlah WUS baru, yang diukur LILA (Lingkar Lengan Atas) bulan ini',
                 'is_parent' => false,
@@ -1424,7 +1424,7 @@ class LB3ProductionSeeder extends Seeder
                 'updated_at' => date("Y-m-d H:i:s"),
             ],
             [ // 3635 child
-                'id' => 3639,
+                'id' => 3701,
                 'name' => 'pelayanan_bayi_jumlah_kesakitan_dan_kematian_perinatal_8_28_hari_oleh_sebab_lain',
                 'label' => 'Oleh sebab lain',
                 'is_parent' => false,
@@ -1694,7 +1694,7 @@ class LB3ProductionSeeder extends Seeder
                 'updated_at' => date("Y-m-d H:i:s"),
             ],
             [ // 3515 child
-                'id' => 3665,
+                'id' =>3702,
                 'name' => 'malaria_jumlah_penderita_malaria_berat_dan_komplikasi',
                 'label' => 'Jumlah penderita malaria berat dan komplikasi',
                 'is_parent' => false,
@@ -2044,7 +2044,7 @@ class LB3ProductionSeeder extends Seeder
                 'updated_at' => date("Y-m-d H:i:s"),
             ],
             [ // 3524 child
-                'id' => 3670,
+                'id' => 3703,
                 'name' => 'kusta_jumlah_penderita_mb_yang_mendapat_pengobatan_mdt_komplit_rtf',
                 'label' => 'Jumlah penderita MB yang mendapat pengobatan MDT komplit (RFT)',
                 'is_parent' => false,
@@ -2054,7 +2054,7 @@ class LB3ProductionSeeder extends Seeder
                 'updated_at' => date("Y-m-d H:i:s"),
             ],
             [ // 3524 child
-                'id' => 3671,
+                'id' => 3704,
                 'name' => 'kusta_jumlah_penderita_pb_yang_mendapat_pengobatan_mdt_komplit_rtf',
                 'label' => 'Jumlah penderita PB yang mendapat pengobatan MDT komplit (RFT)',
                 'is_parent' => false,
@@ -2064,5 +2064,6 @@ class LB3ProductionSeeder extends Seeder
                 'updated_at' => date("Y-m-d H:i:s"),
             ],
         ];
+        DB::table('indicator')->insert($indicators);
     }
 }
